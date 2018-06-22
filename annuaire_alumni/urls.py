@@ -15,12 +15,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.views.generic import TemplateView
 
 from django.conf import settings
 from django.conf.urls import include, url
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # Add the django.contrib.auth views
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/profile/', TemplateView.as_view(template_name='base.html'), name='profile'),
+    path('', include('apps.annuaire.urls')),
     ]
 
 # Enable the debug_toolbar
