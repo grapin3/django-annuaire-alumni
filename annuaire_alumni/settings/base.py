@@ -125,3 +125,8 @@ STATIC_URL = '/static/'
 
 # Define for used in local
 INTERNAL_IPS = []
+
+# Mess
+EMAIL_BACKEND = ''
+
+LOGOUT_REDIRECT_URL = 'home'
