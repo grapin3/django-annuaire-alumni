@@ -14,6 +14,7 @@ import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.join(BASE_DIR,'..')
 
 
 # Quick-start development settings - unsuitable for production
@@ -56,7 +57,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR, '../templates'),
+            os.path.join(BASE_DIR, 'templates'),
             ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -122,6 +123,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
+)
 
 # Define for used in local
 INTERNAL_IPS = []
