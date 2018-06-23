@@ -1,4 +1,6 @@
 from .base import *
+from django.conf import settings
+from django.conf.urls.static import static
 
 DEBUG==True
 
@@ -32,3 +34,5 @@ INTERNAL_IPS += [
 
 # During development only
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  
+
+MEDIA_URL = 'media/'

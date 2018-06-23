@@ -5,6 +5,8 @@
 <section class="row">
   <div class="card col-2">
     {% if user.profile.photo %}
+    <img src="{{ user.profile.photo.url }}"
+         width=100%>
     {% else %}
     <img src="{% static 'annuaire/img/mario.jpg' %}"
          width=100%>
