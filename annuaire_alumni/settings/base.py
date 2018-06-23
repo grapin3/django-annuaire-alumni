@@ -127,6 +127,4 @@ STATIC_URL = '/static/'
 INTERNAL_IPS = []
 
 # Mess
-EMAIL_BACKEND = ''
-
 LOGOUT_REDIRECT_URL = 'home'
