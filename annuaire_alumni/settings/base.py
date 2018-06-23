@@ -131,4 +131,5 @@ STATICFILES_DIRS = (
 INTERNAL_IPS = []
 
 # Mess
+LOGIN_REDIRECT_URL = 'user/profile'
 LOGOUT_REDIRECT_URL = 'home'

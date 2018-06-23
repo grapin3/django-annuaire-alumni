@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+<section class="row">
+  <div class="card col-2">
+    {% if user.profile.photo %}
+    {% else %}
+    <img src="{% static 'annuaire/img/mario.jpg' %}"
+         width=100%>
+    {% endif %}
+    <button class="btn" type="button">Modifier</button>
+  </div>
+  <div class="col-10">
+  <h2>Infos :</h2>
+  <p> {{ user.username }} </p>
+  <p> {{ user.profile.promo }} </p>
+  </div>
+</section>
+{% endblock content %}
