@@ -8,6 +8,7 @@ from . import views
 urlpatterns = [
         path( 'profile', views.display_profile, name='profile'),
         path('update', views.update_profile, name='update_profile'),
+        path('create', views.create_profile, name='create_profile'),
         ]
 
         #The function static ensure that it only work when using DEBUG for
