@@ -131,4 +131,7 @@ STATICFILES_DIRS = (
 INTERNAL_IPS = []
 
 # Mess
-LOGOUT_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = '/user/profile'
+LOGOUT_REDIRECT_URL = '/home'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')

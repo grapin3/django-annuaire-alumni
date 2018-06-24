@@ -1,7 +1,7 @@
 .DS_Store
 media
 db.sqlite3
-settings_local.py
+apps/*/migrations/*
 *.sublime-project
 *.sublime-workspace
 

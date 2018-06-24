@@ -24,8 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # Add the django.contrib.auth views
     path('accounts/', include('django.contrib.auth.urls')),
-    path('accounts/profile/', TemplateView.as_view(template_name='base.html'), name='profile'),
-    path('', include('apps.annuaire.urls')),
+    path('user/', include('apps.annuaire.urls')),
     ]
 
 # Enable the debug_toolbar
