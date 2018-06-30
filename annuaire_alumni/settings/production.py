@@ -5,7 +5,7 @@ DEBUG=False
 
 SECRET_KEY=os.environ['SECRET_KEY']
 
-ALLOWED_HOSTS=['annuaire.salletalumni.fr','164.132.97.33']
+ALLOWED_HOSTS=['annuaire.salletalumni.fr','164.132.97.33','localhost']
 
 DATABASES = {
         'default': {
@@ -19,3 +19,10 @@ DATABASES = {
                 'default-character-set':'utf8',
                 },
         }}
+
+STATIC_ROOT="/var/www/static/"
+STATIC_URL="https://static.salletalumni.fr/"
+
+ADMIN = [ 
+("Guillaume GOUIN", "grapin3@gmail.com"),
+]
