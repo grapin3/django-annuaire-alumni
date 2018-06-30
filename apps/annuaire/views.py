@@ -50,3 +50,6 @@ def create_profile(request):
         'user_form': user_form,
         'profile_form': profile_form,
         })
+
+def index(request):
+    return render(request,'annuaire/index.html')
