@@ -15,8 +15,13 @@ def avatar_directory_path(instance, filename):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    member = models.ForeignKey('Member', on_delete=models.CASCADE, blank=True)
-
+    #member = models.ForeignKey('Member', on_delete=models.CASCADE, blank=True)
+    photo = models.ImageField(upload_to=avatar_directory_path,null=True, blank=True)
+    bio= models.TextField(max_length=500, null=True, blank=True)
+    promo=models.IntegerField(null=True, blank=True)
+    gap_year = models.BooleanField(default=False)
+    miscellaneous = models.TextField(max_length=500, blank=True)
+   
     def __str__(self):
         return self.user.username
 
@@ -24,11 +29,7 @@ class Member(models.Model):
     memberid = models.AutoField(primary_key=True)
     firstname = models.CharField(max_length=30, )
     lastname = models.CharField(max_length=30, )
-    photo = models.ImageField(upload_to=avatar_directory_path,null=True, blank=True)
-    bio= models.TextField(max_length=500)
-    promo=models.IntegerField(null=True)
-    gap_year = models.BooleanField(default=False, blank=True)
-
+    profile = models.OneToOneField(Profile, on_delete=models.CASCADE, null=True) 
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
@@ -39,5 +40,16 @@ def create_user_profile(sender, instance, created, **kwargs):
 
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
+    old_active = instance.is_active
+    instance.is_active = False
+    if (instance.is_superuser):
+        instance.is_active = True
+    try:
+        instance.profile.member
+        instance.is_active = True
+    except:
+        pass
     instance.profile.save()
+    if (old_active != instance.is_active):
+        instance.save()
 

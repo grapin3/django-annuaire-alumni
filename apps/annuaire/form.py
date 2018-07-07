@@ -6,7 +6,7 @@ from .models import Profile, Member
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ('member',)
+        fields = ('photo', 'bio', 'promo', 'gap_year', 'miscellaneous',)
 
 class UserForm(forms.ModelForm):
     class Meta:
@@ -16,7 +16,7 @@ class UserForm(forms.ModelForm):
 class MemberForm(forms.ModelForm):
     class Meta:
         model = Member
-        fields = ('firstname', 'lastname', 'photo', 'bio', 'promo', 'gap_year',)
+        fields = ('firstname', 'lastname',)
 
 class UserRegistrationForm(forms.ModelForm):
     # We will make sure that the created user is inactive in the view
@@ -55,10 +55,10 @@ class UserRegistrationForm(forms.ModelForm):
 class MemberRegistrationForm(forms.ModelForm):
     class Meta:
         model = Member
-        fields = ('firstname', 'lastname', 'photo', 'bio', 'promo', 'gap_year',)
+        fields = ('firstname', 'lastname',)
 
 class ProfileRegistrationForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ('member',)
+        fields = ('photo', 'bio', 'promo', 'gap_year', 'miscellaneous',)
 
