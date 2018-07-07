@@ -1,17 +1,22 @@
 from django import forms
 from django.contrib.auth.models import User
 
-from .models import Profile
+from .models import Profile, Member
 
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ('photo', 'bio', 'promo', 'gap_year')
+        fields = ('member',)
 
 class UserForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'last_name', 'email')
+        fields = ('username', 'first_name', 'last_name', 'email',)
+
+class MemberForm(forms.ModelForm):
+    class Meta:
+        model = Member
+        fields = ('firstname', 'lastname', 'photo', 'bio', 'promo', 'gap_year',)
 
 class UserRegistrationForm(forms.ModelForm):
     # We will make sure that the created user is inactive in the view
@@ -47,9 +52,13 @@ class UserRegistrationForm(forms.ModelForm):
         model = User
         fields = ('username', 'first_name', 'last_name', 'email', )
 
+class MemberRegistrationForm(forms.ModelForm):
+    class Meta:
+        model = Member
+        fields = ('firstname', 'lastname', 'photo', 'bio', 'promo', 'gap_year',)
+
 class ProfileRegistrationForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ('promo', 'photo', 'gap_year',) 
-
+        fields = ('member',)
 

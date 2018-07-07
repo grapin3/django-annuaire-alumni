@@ -15,13 +15,20 @@ def avatar_directory_path(instance, filename):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    photo = models.ImageField(upload_to=avatar_directory_path,null=True, blank=True)
-    bio = models.TextField(max_length=500, blank=True)
-    promo = models.IntegerField(null=True, blank=True)
-    gap_year = models.BooleanField(default=False, blank=True)
+    member = models.ForeignKey('Member', on_delete=models.CASCADE, blank=True)
 
     def __str__(self):
         return self.user.username
+
+class Member(models.Model):
+    memberid = models.AutoField(primary_key=True)
+    firstname = models.CharField(max_length=30, )
+    lastname = models.CharField(max_length=30, )
+    photo = models.ImageField(upload_to=avatar_directory_path,null=True, blank=True)
+    bio= models.TextField(max_length=500)
+    promo=models.IntegerField(null=True)
+    gap_year = models.BooleanField(default=False, blank=True)
+
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):

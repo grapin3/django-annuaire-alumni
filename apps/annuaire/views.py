@@ -4,7 +4,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib import messages
 
-from .form import UserForm, ProfileForm, UserRegistrationForm,\
+from .models import Member
+from .form import *
 ProfileRegistrationForm
 
 import logging
@@ -50,6 +51,28 @@ def create_profile(request):
         'user_form': user_form,
         'profile_form': profile_form,
         })
+
+@login_required
+def show_members(request):
+    member_list= Member.objects.all()
+    return render(request, 'annuaire/member_list.html',{
+        'member_list': member_list,
+        })
+
+@login_required
+def create_member(request):
+        member_form = MemberRegistrationForm(request.POST, request.FILES)
+
+        if member_form.is_valid():
+            member_form.save()
+            messages.success(request, 'The member was successfully created!')
+            return render(request, 'annuaire/member_created.html',{
+                'member_form': member_form,
+                })
+        else :
+            return render(request, 'annuaire/create_member.html',{
+                'member_form': member_form,
+                })
 
 def index(request):
     return render(request,'annuaire/index.html')
