@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<p>Liste des membres de l'association</p>
+
+{% for value in profile_list%}
+
+<div class="container">
+	<button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo{{value.user}}">{{value.user.first_name}} {{value.user.last_name}} </button>
+	<div id="demo{{value.user}}" class="collapse">
+	  <p> Promotion : {{value.promo}}</p>
+	  <p> Césure : {{value.gap_year}}</p>
+	  <p> Bio: {{value.bio}}</p>
+	  <p> Misc: {{value.miscellaneous}}</p>
+  </div>
+</div>
+
+{% endfor %}
+{% endblock content %}

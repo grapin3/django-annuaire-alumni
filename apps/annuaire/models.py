@@ -21,7 +21,7 @@ class Profile(models.Model):
     promo=models.IntegerField(null=True, blank=True)
     gap_year = models.BooleanField(default=False)
     miscellaneous = models.TextField(max_length=500, blank=True)
-   
+
     def __str__(self):
         return self.user.username
 
@@ -29,7 +29,7 @@ class Member(models.Model):
     memberid = models.AutoField(primary_key=True)
     firstname = models.CharField(max_length=30, )
     lastname = models.CharField(max_length=30, )
-    profile = models.OneToOneField(Profile, on_delete=models.CASCADE, null=True) 
+    profile = models.OneToOneField(Profile, on_delete=models.CASCADE, blank=True)
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):

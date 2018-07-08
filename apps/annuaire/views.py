@@ -12,6 +12,13 @@ import logging
 logger=logging.getLogger(__name__)
 
 @login_required
+def show_profiles(request):
+    profile_list=Profile.objects.all()
+    return render(request, 'annuaire/profile_list.html',{
+        'profile_list': profile_list,
+        })
+
+@login_required
 def display_profile(request, user_id=None):
     if user_id:
         user = User.objects.get(pk=user_id)
