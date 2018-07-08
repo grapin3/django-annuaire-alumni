@@ -53,3 +53,10 @@ def save_user_profile(sender, instance, **kwargs):
     if (old_active != instance.is_active):
         instance.save()
 
+@receiver(post_save, sender=Member)
+def save_member_profile(sender, instance, **kwargs):
+    try:
+        instance.profile
+        instance.profile.user.save()
+    except:
+        pass
