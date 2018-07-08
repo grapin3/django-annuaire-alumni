@@ -3,7 +3,8 @@
 {% block content %}
 <form method="post" enctype="multipart/form-data" >
   {% csrf_token %}
-  {{ member_form.as_p }}
+  {{ user_form.as_p }}
+  {{ profile_form.as_p }}
   <button type="submit" class="btn">Créer</button>
 </form>
 {% endblock content %}
