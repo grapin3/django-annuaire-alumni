@@ -1,19 +1,40 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<p>Liste des membres de l'association</p>
-
-{% for value in profile_list%}
-
-<div class="container">
-	<button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo{{value.user}}">{{value.user.first_name}} {{value.user.last_name}} </button>
-	<div id="demo{{value.user}}" class="collapse">
-	  <p> Promotion : {{value.promo}}</p>
-	  <p> Césure : {{value.gap_year}}</p>
-	  <p> Bio: {{value.bio}}</p>
-	  <p> Misc: {{value.miscellaneous}}</p>
-  </div>
+<div class="row">
+	<div class="col-8">
+		<p>Liste des membres de l'association</p>
+	</div>
+	<div class="col-4">
+		<input class="form-control" id="myInput" type="text" placeholder="Search..">
+	</div>
 </div>
 
-{% endfor %}
+<ul class="list-group" id="filterList">
+	{% for value in profile_list%}
+
+	<li class=="list-group-item">
+		<button type="button" class="btn btn-primary btn-space" data-toggle="collapse" data-target="#demo{{value.user}}">{{value.user.first_name}} {{value.user.last_name}} </button>
+		<div id="demo{{value.user}}" class="collapse">
+			<p> Promotion : {{value.promo}}</p>
+			<p> Césure : {{value.gap_year}}</p>
+			<p> Bio: {{value.bio}}</p>
+			<p> Misc: {{value.miscellaneous}}</p>
+		</div>
+	</li>
+
+	{% endfor %}
+</ul>
+
+<script>
+	$(document).ready(function(){
+		$("#myInput").on("keyup", function() {
+			var value = $(this).val().toLowerCase();
+			$("#filterList li").filter(function() {
+				$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+			});
+		});
+	});
+</script>
+
 {% endblock content %}
