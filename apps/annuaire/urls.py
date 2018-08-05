@@ -6,13 +6,19 @@ from django.conf.urls.static import static
 from . import views
 
 urlpatterns = [
+        path('', views.index, name='index'),
+
+        #Gestion des profiles utilisateurs
         path( 'profile', views.display_profile, name='profile'),
         path('update', views.update_profile, name='update_profile'),
         path('create', views.create_profile, name='create_profile'),
+
+        #Gestion des membres
         path('create_member', views.create_member, name='create_member'),
         path('members', views.show_members, name='show_members'),
-        path('profiles', views.show_profiles, name='show_profiles'),
-        path('', views.index, name='index'),
+
+        #Annuaire
+        path('users', views.show_profiles, name='show_profiles'),
         ]
 
         #The function static ensure that it only work when using DEBUG for
