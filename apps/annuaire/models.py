@@ -29,7 +29,7 @@ class Member(models.Model):
     memberid = models.AutoField(primary_key=True)
     firstname = models.CharField(max_length=30, )
     lastname = models.CharField(max_length=30, )
-    profile = models.OneToOneField(Profile, on_delete=models.CASCADE, blank=True)
+    profile = models.OneToOneField(Profile, on_delete=models.CASCADE,null=True,)
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):

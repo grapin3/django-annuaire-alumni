@@ -10,9 +10,9 @@ urlpatterns = [
         path('update', views.update_profile, name='update_profile'),
         path('create', views.create_profile, name='create_profile'),
         path('create_member', views.create_member, name='create_member'),
-        #path('members', views.show_members, name='show_members'),
+        path('members', views.show_members, name='show_members'),
         path('profiles', views.show_profiles, name='show_profiles'),
-        path('', views.index, name='index')
+        path('', views.index, name='index'),
         ]
 
         #The function static ensure that it only work when using DEBUG for
