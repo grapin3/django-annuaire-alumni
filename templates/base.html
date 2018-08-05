@@ -39,6 +39,11 @@
             <li class="nav-item">
               <a class="nav-link" href="{% url 'profile' %}">Mon Profil</a>
             </li>
+	    <li class="nav-item">
+            {% if request.user.is_authenticated %} <a class = "nav-link" href="/accounts/logout">Deconnexion</a>
+            {% else %} <a class="nav-link" href="/accounts/login">Connexion</a>
+            {% endif %}
+            </li>
           </ul>
         </nav>
 

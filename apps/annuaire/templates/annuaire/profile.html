@@ -16,7 +16,17 @@
   <div class="col-10">
   <h2>Infos :</h2>
   <p> {{ user.username }} </p>
-  <p> {{ user.profile.promo }} </p>
+  <p>  Promotion {{ user.profile.promo }}
+  {% if user.profile.gap_year %}
+  , césure
+  {% endif %}
+  </p>
+  {% if user.profile.bio %}
+  <p>Bio :  {{ user.profile.bio }} </p>
+  {% endif %}
+  {% if user.profile.miscellaneous %}
+  <p>Divers :  {{ user.profile.miscellaneous }} </p>
+  {% endif %}
   </div>
   <div class="col-11">
 	  <a class="nav-link"  href="/update"> Modifier mon profil</a>
