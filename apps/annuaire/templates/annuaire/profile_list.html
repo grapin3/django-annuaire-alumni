@@ -2,39 +2,57 @@
 
 {% block content %}
 <div class="row">
-	<div class="col-8">
-		<p>Liste des membres de l'association</p>
-	</div>
-	<div class="col-4">
-		<input class="form-control" id="myInput" type="text" placeholder="Search..">
-	</div>
+  <div class="col-8">
+    <h2>Rechercher une personne dans l'annuaire</h2>
+  </div>
+  <div class="col-4">
+    <input class="form-control"
+           id="myInput"
+           type="text"
+           placeholder="Rechercher ...">
+  </div>
 </div>
 
-<ul class="list-group" id="filterList">
-	{% for value in profile_list%}
+<div class="row">
+  {% for profile in profile_list %}
+  <div class="col-4 mb-2">
+    <div class="card border-primary" id="filterList">
+      <div class="card-header" id="header">
+        <div class="row justify-content-between align-items-center">
+          <div class="col col-md-auto text-primary">
+            {{ profile.user.first_name|title }} {{ profile.user.last_name|upper }}
+          </div>
+    <div class="col col-md-auto">
+      <button type="button" class="btn btn-outline-primary btn-sm"
+                            data-toggle="collapse"
+                            data-target="#meta{{profile.user}}">
+        &#9776; 
+      </button>
+    </div>
+        </div>
+      </div>
 
-	<li class=="list-group-item">
-		<button type="button" class="btn btn-primary btn-space" data-toggle="collapse" data-target="#demo{{value.user}}">{{value.user.first_name}} {{value.user.last_name}} </button>
-		<div id="demo{{value.user}}" class="collapse">
-			<p> Promotion : {{value.promo}}</p>
-			<p> Césure : {{value.gap_year}}</p>
-			<p> Bio: {{value.bio}}</p>
-			<p> Misc: {{value.miscellaneous}}</p>
-		</div>
-	</li>
+      <div class="card-body collapse" id="meta{{profile.user}}">
+        <p> Promotion : {{value.promo}}</p>
+        <p> Césure : {{value.gap_year}}</p>
+        <p> Bio: {{value.bio}}</p>
+        <p> Misc: {{value.miscellaneous}}</p>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
 
-	{% endfor %}
-</ul>
 
 <script>
-	$(document).ready(function(){
-		$("#myInput").on("keyup", function() {
-			var value = $(this).val().toLowerCase();
-			$("#filterList li").filter(function() {
-				$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-			});
-		});
-	});
+  $(document).ready(function(){
+    $("#myInput").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      $("#filterList #header").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+  });
 </script>
 
 {% endblock content %}
