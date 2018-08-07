@@ -9,9 +9,9 @@ urlpatterns = [
         path('', views.index, name='index'),
 
         #Gestion des profiles utilisateurs
-        path( 'profile', views.display_profile, name='profile'),
-        path('update', views.update_profile, name='update_profile'),
-        path('create', views.create_profile, name='create_profile'),
+        path('accounts/myprofile', views.display_profile, name='profile'),
+        path('accounts/update', views.update_profile, name='update_profile'),
+        path('accounts/register', views.create_profile, name='register'),
 
         #Gestion des membres
         path('create_member', views.create_member, name='create_member'),

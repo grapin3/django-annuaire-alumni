@@ -24,8 +24,11 @@
         <header class="card-header">
           <h1>Salle T Alumni</h1>
 
+          {% comment %}
           <nav class="navbar navbar-expand-lg navbar-light">
             <ul class="navbar-nav mr-auto">
+              {% endcomment %}
+              <ul class="nav nav-tabs card-header-tabs">
               <li class="nav-item">
                 <a class="nav-link 
                 {% if request.path == '/' %} active {% endif %}"
@@ -39,22 +42,25 @@
                    href="{% url 'show_profiles' %}">Annuaire</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="https://salletalumni.fr">Forum</a>
-              </li>
-              <li class="nav-item">
                 <a class="nav-link
-                {% if '/profile' in request.path %} active {% endif %}"
+                {% if 'profile' in request.path %} active {% endif %}"
                    href="{% url 'profile' %}">Mon Profil</a>
               </li>
+              {% if request.user.is_authenticated %}
+              <li class="nav-item ml-auto">
+                <a class = "nav-link" href="{% url 'logout' %}">Déconnexion</a>
+              {% else %}
+              <li class="nav-item ml-auto">
+                <a class="nav-link" href="{% url 'login' %}">Connexion</a>
+              </li>
               <li class="nav-item">
-                {% if request.user.is_authenticated %}
-                <a class = "nav-link" href="/accounts/logout">Déconnexion</a>
-                {% else %}
-                <a class="nav-link" href="/accounts/login">Connexion</a>
-                {% endif %}
+                <a class="nav-link" href="{% url 'register' %}">Inscription</a>
+              {% endif %}
               </li>
             </ul>
+              {% comment %}
           </nav>
+          {% endcomment %}
 
         </header>
         <main class="card-body">
