@@ -132,6 +132,6 @@ INTERNAL_IPS = []
 
 # Mess
 LOGIN_REDIRECT_URL = 'profile'
-LOGOUT_REDIRECT_URL = 'index'
+LOGOUT_REDIRECT_URL = 'home'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')

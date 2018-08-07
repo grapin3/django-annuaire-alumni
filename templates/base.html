@@ -32,7 +32,7 @@
               <li class="nav-item">
                 <a class="nav-link 
                 {% if request.path == '/' %} active {% endif %}"
-                   href="{% url 'index' %}">Home
+                   href="{% url 'home' %}">Accueil
                    <span class="sr-only"> (current)</span>
                 </a>
               </li>
@@ -47,8 +47,16 @@
                    href="{% url 'profile' %}">Mon Profil</a>
               </li>
               {% if request.user.is_authenticated %}
+              {% if request.user.is_staff %}
+              <li class="nav-item">
+                <a class="nav-link border-danger text-danger"  href="{% url 'admin:index' %}">Administration</a>
+              </li>
+                {% endif %}
+
               <li class="nav-item ml-auto">
                 <a class = "nav-link" href="{% url 'logout' %}">Déconnexion</a>
+              
+              </li>
               {% else %}
               <li class="nav-item ml-auto">
                 <a class="nav-link" href="{% url 'login' %}">Connexion</a>
