@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'apps.annuaire',
+    'address',
 ]
 
 MIDDLEWARE = [
@@ -135,3 +136,6 @@ LOGIN_REDIRECT_URL = 'profile'
 LOGOUT_REDIRECT_URL = 'index'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+GOOGLE_API_KEY = 'AIzaSyBV1MPLJXbAHasUeLP3fb9mA0i8HBUeGQU'
+

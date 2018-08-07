@@ -6,6 +6,8 @@ from django.dispatch import receiver
 
 from os import path
 
+from address.models import AddressField
+
 import logging
 logger= logging.getLogger(__name__)
 
@@ -17,6 +19,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     #member = models.ForeignKey('Member', on_delete=models.CASCADE, blank=True)
     photo = models.ImageField(upload_to=avatar_directory_path,null=True, blank=True)
+    address = AddressField(on_delete=models.CASCADE, blank=True, null=True)
     bio= models.TextField(max_length=500, null=True, blank=True)
     promo=models.IntegerField(null=True, blank=True)
     gap_year = models.BooleanField(default=False)

@@ -4,6 +4,7 @@ from django.conf.urls.static import static
 
 DEBUG==True
 
+"""
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -19,6 +20,7 @@ LOGGING = {
         },
     },
 }
+"""
 
 INSTALLED_APPS += [
         'debug_toolbar',
