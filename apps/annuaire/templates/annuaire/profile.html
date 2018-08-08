@@ -3,7 +3,7 @@
 
 {% block content %}
 <section class="row">
-  <div class="col-2">
+  <div class="col-4 col-md-2 col-sm-3">
     <div class="card">
       {% if user.profile.photo %}
       <img class="card-img-top" src="{{ user.profile.photo.url }}"
@@ -14,57 +14,52 @@
       {% endif %}
     </div>
   </div>
-  <div class="col-10">
+  <div class="col-8 col-md-10 col-sm-9">
     <div class="row">
-      <div class="col">
-        <h2>Infos :</h2>
-      </div>
-      <div class="col-md-auto ml-auto">
+      <div class="col-sm-auto ml-auto order-sm-last">
         <a class="badge"  href="{% url 'update_profile' %}"> Modifier mon profil</a>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-3 text-right text-muted">
-        Pseudonyme :
-      </div>
-      <div class="col">
-        {{ user.username|title }}
+      <div class="col order-sm-start">
+        <h2>Infos :</h2>
       </div>
     </div>
 
-    {% if user.profile.promo != None %}
-    <div class="row">
-      <div class="col-3 text-right text-muted">
-        Année de diplome :
-      </div>
-      <div class="col">
-        {{ user.profile.promo }}{% if user.profile.gap_year %}, après une
-        césure{% endif %}
-      </div>
-    </div>
-    {% endif %}
+    <dl class="row">
+      <dt class="col-md-4 col-lg-3 text-muted">
+      Pseudonyme :
+      </dt>
+      <dd class="col-md-8 col-lg-9 align-self-end">
+      {{ user.username|title }}
+      </dd>
 
-    {% if user.profile.bio %}
-    <div class="row">
-      <div class="col-3 text-right text-muted">
-        À propos de vous :
-      </div>
-      <div class="col">
-        {{ user.profile.bio }}
-      </div>
-    </div>
-    {% endif %}
+      {% if user.profile.promo != None %}
+      <dt class="col-md-4 col-lg-3 text-muted">
+      Année de diplome :
+      </dt>
+      <dd class="col-md-8 col-lg-9 align-self-end">
+      {{ user.profile.promo }}{% if user.profile.gap_year %}, après une
+      césure{% endif %}
+      </dd>
+      {% endif %}
 
-    {% if user.profile.miscellaneous %}
-    <div class="row">
-      <div class="col-3 text-right text-muted">
-        Divers :
-      </div>
-      <div class="col">
-        {{ user.profile.miscellaneous }}
-      </div>
-    </div>
-    {% endif %}
+      {% if user.profile.bio %}
+      <dt class="col-md-4 col-lg-3 text-muted">
+      À propos de vous :
+      </dt>
+      <dd class="col-md-8 col-lg-9 align-self-end">
+      {{ user.profile.bio }}
+      </dd>
+      {% endif %}
+
+      {% if user.profile.miscellaneous %}
+      <dt class="col-md-4 col-lg-3 text-muted">
+      Divers :
+      </dt>
+      <dd class="col-md-8 col-lg-9 align-self-end">
+      {{ user.profile.miscellaneous }}
+      </dd>
+      {% endif %}
+    </dl>
   </div>
 </section>
 <section class="row">
