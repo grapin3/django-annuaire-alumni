@@ -3,32 +3,70 @@
 
 {% block content %}
 <section class="row">
-  <div class="card col-2">
-    {% if user.profile.photo %}
-    <img src="{{ user.profile.photo.url }}"
-         width=100%>
-    {% else %}
-    <img src="{% static 'annuaire/img/mario.jpg' %}"
-         width=100%>
-    {% endif %}
-    <button class="btn" type="button">Modifier</button>
+  <div class="col-2">
+    <div class="card">
+      {% if user.profile.photo %}
+      <img class="card-img-top" src="{{ user.profile.photo.url }}"
+                                width=100%>
+      {% else %}
+      <img class="card-img-top" src="{% static 'annuaire/img/mario.jpg' %}"
+                                width=100%>
+      {% endif %}
+    </div>
   </div>
   <div class="col-10">
-  <h2>Infos :</h2>
-  <p> {{ user.username }} </p>
-  <p>  Promotion {{ user.profile.promo }}
-  {% if user.profile.gap_year %}
-  , césure
-  {% endif %}
-  </p>
-  {% if user.profile.bio %}
-  <p>Bio :  {{ user.profile.bio }} </p>
-  {% endif %}
-  {% if user.profile.miscellaneous %}
-  <p>Divers :  {{ user.profile.miscellaneous }} </p>
-  {% endif %}
+    <div class="row">
+      <div class="col">
+        <h2>Infos :</h2>
+      </div>
+      <div class="col-md-auto ml-auto">
+        <a class="badge"  href="{% url 'update_profile' %}"> Modifier mon profil</a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-3 text-right text-muted">
+        Pseudonyme :
+      </div>
+      <div class="col">
+        {{ user.username|title }}
+      </div>
+    </div>
+
+    {% if user.profile.promo != None %}
+    <div class="row">
+      <div class="col-3 text-right text-muted">
+        Année de diplome :
+      </div>
+      <div class="col">
+        {{ user.profile.promo }}{% if user.profile.gap_year %}, après une
+        césure{% endif %}
+      </div>
+    </div>
+    {% endif %}
+
+    {% if user.profile.bio %}
+    <div class="row">
+      <div class="col-3 text-right text-muted">
+        À propos de vous :
+      </div>
+      <div class="col">
+        {{ user.profile.bio }}
+      </div>
+    </div>
+    {% endif %}
+
+    {% if user.profile.miscellaneous %}
+    <div class="row">
+      <div class="col-3 text-right text-muted">
+        Divers :
+      </div>
+      <div class="col">
+        {{ user.profile.miscellaneous }}
+      </div>
+    </div>
+    {% endif %}
   </div>
-  <div class="col-11">
-    <a class="nav-link"  href="{% url 'update_profile' %}"> Modifier mon profil</a>
+</section>
+<section class="row">
 </section>
 {% endblock content %}
