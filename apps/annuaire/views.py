@@ -31,18 +31,23 @@ def display_profile(request, user_id=None):
 
 @login_required
 def update_profile(request):
-    user_form = UserForm(request.POST or None, instance=request.user)
-    profile_form = ProfileForm(request.POST or None, request.FILES, instance=request.user.profile)
-    if user_form.is_valid() and profile_form.is_valid():
-        user_form.save()
-        profile_form.save()
-        messages.success(request, 'Your profile was successfully updated!')
-        return redirect('profile')
+    if request.method == "POST":
+        user_form = UserForm(request.POST, instance=request.user)
+        profile_form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, 'Votre profile bien été mis à jour \o/')
+            return redirect('profile')
+        else:
+            messages.error(request, 'Oups, il semblerait que vous ayez fait \
+            des erreurs. Merci de les corriger.')
     else:
-        messages.error(request, 'Please correct the error below.')
+        user_form = UserForm(instance=request.user)
+        profile_form = ProfileForm(instance=request.user.profile)
     return render(request, 'annuaire/update_profile.html', {
         'user_form': user_form,
-        'profile_form': profile_form
+        'profile_form': profile_form,
     })
 
 def create_profile(request):
