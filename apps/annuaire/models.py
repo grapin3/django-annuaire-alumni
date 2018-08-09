@@ -15,7 +15,6 @@ def avatar_directory_path(instance, filename):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    #member = models.ForeignKey('Member', on_delete=models.CASCADE, blank=True)
     photo = models.ImageField(upload_to=avatar_directory_path,null=True, blank=True)
     city = models.CharField(max_length=500,blank=True, null=True)
     region = models.CharField(max_length=500, blank=True, null=True)
