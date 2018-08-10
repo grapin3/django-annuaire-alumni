@@ -1,10 +1,66 @@
 {% extends 'base.html' %}
+{% load widget_tweaks %}
 
 {% block content %}
 <form method="post" enctype="multipart/form-data">
   {% csrf_token %}
-  {{ user_form.as_p }}
-  {{ profile_form.as_p }}
+  
+  {# Manage the non field error #}
+  {# Not tested #}
+  {% if user_form.non_field_errors %}
+  <div class="alert alert-danger" role="alert">
+    {% for error in form.non_field_errors %}
+    {{ error }}
+    {% endfor %}
+  </div>
+  {% endif %}
+ 
+  {% for field in user_form.visible_fields|add:profile_form.visible_fields %}
+  <div class="form-group row">
+    <label for="{{ field.id_for_label }}" class="col-form-label col-lg-2">
+      {{ field.label }}
+      {% if field.required %}{% if field.errors %}
+      <span class="text-warning">*</span>
+      {% else %}*{% endif %}{% endif %} :
+    </label>
+
+    <div class="col-lg-10">
+      {# here we create the id required for the helptext #}
+      {% with field.html_name|add:"Help" as helpID %}
+
+      {# We only check the data on POST request ie not the first time #}
+      {% if request.method == "POST" %}
+        {% if field.errors %}
+          {% render_field field aria-describedby=helpID class+="is-invalid" %}
+        {% else %}
+          {% render_field field aria-describedby=helpID class+="is-valid" %}
+        {% endif %} 
+      {% else %}
+        {% render_field field aria-describedby=helpID class+="" %}
+      {% endif %}
+
+      {% if field.help_text %}
+      <small id="{{ helpID }}" class="form-text text-muted">
+        {{ field.help_text }}
+      </small>
+      {% endif %}
+
+      {# We only display errors for POST request ie not the first time #}
+      {% if request.method == "POST" %}
+        {% if field.errors %}
+          {% for error in field.errors %}
+            <div class="invalid-feedback">
+              {{ error }}
+            </div>
+          {% endfor %}
+        {% endif %}
+      {% endif %}
+
+      {% endwith %}
+    </div>
+  </div>
+  {% endfor %}
+
   <button class="btn btn-primary" type="submit">Save changes</button>
 </form>
 {% endblock content %}
