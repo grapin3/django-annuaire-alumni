@@ -6,7 +6,6 @@ from django.contrib import messages
 
 from .models import Member
 from .form import *
-ProfileRegistrationForm
 
 import logging
 logger=logging.getLogger(__name__)
@@ -37,7 +36,7 @@ def update_profile(request):
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
-            messages.success(request, 'Votre profile bien été mis à jour \o/')
+            messages.success(request, 'Votre profile a bien été mis à jour \o/')
             return redirect('profile')
         else:
             messages.error(request, 'Oups, il semblerait que vous ayez fait \
@@ -51,17 +50,19 @@ def update_profile(request):
     })
 
 def create_profile(request):
-    user_form = UserRegistrationForm(request.POST or None,
-            initial={'is_active':False}, )
-    profile_form = ProfileRegistrationForm(request.POST or None, request.FILES)
-
-    if user_form.is_valid() and profile_form.is_valid():
-        user_form.save()
-        #profile_form.save()
+    form = RegistrationForm(request.POST or None)
+    
+    if form.is_valid():
+        user = form.save(commit=False)
+        user.is_active = False
+        user.save()
+        messages.success(request, "Votre compte a bien été crée. Il faut \
+                maintenant qu'un modérateur l'active.")
+        return redirect('home')
+        
     logger.info("Rendering Create Profile page")
     return render(request, 'annuaire/create_profile.html', {
-        'user_form': user_form,
-        'profile_form': profile_form,
+        'form': form,
         })
 
 @login_required
