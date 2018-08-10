@@ -1,9 +1,12 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 {% load widget_tweaks %}
 
 {% block content %}
 <form method="post" enctype="multipart/form-data">
   {% csrf_token %}
+
+
   
   {# Manage the non field error #}
   {# Not tested #}
@@ -14,53 +17,225 @@
     {% endfor %}
   </div>
   {% endif %}
- 
-  {% for field in user_form.visible_fields|add:profile_form.visible_fields %}
-  <div class="form-group row">
-    <label for="{{ field.id_for_label }}" class="col-form-label col-lg-2">
-      {{ field.label }}
-      {% if field.required %}{% if field.errors %}
-      <span class="text-warning">*</span>
-      {% else %}*{% endif %}{% endif %} :
+  {# username field #}
+  <div class="form-group">
+    <label for="{{ user_form.username.id_for_label }}" >
+      {{ user_form.username.label }}
+      {% if user_form.username.errors %}<span class="text-alert">*</span>
+      {% else %}*{% endif %} :
     </label>
 
-    <div class="col-lg-10">
-      {# here we create the id required for the helptext #}
-      {% with field.html_name|add:"Help" as helpID %}
+    <input id="{{ user_form.username.label }}"
+           name="{{ user_form.username.html_name }}"
+           value="{{ user_form.username.value }}"
+           placeholder="Choisissez un nom d'utilisateur"
+           required
+           readonly
+           class="form-control {% if request.method == "POST" %}
+           {% if user_form.username.errors %}is-invalid
+           {% else %}is-valid{% endif %}{% endif %}"
+           aria-describedby="{{ user_form.username.id_for_label }}Help">
+    <small id="{{ user_form.username.id_for_label }}Help" class="form-text
+    text-muted pl-1">{{ user_form.username.help_text }}</small>
+    {% if user_form.username.errors %}
+    {% for error in user_form.username.errors %}
+    <div class="invalid-feedback">
+      {{ error }}
+    </div>
+    {% endfor %}
+    {% endif %}
+  </div>
 
-      {# We only check the data on POST request ie not the first time #}
-      {% if request.method == "POST" %}
-        {% if field.errors %}
-          {% render_field field aria-describedby=helpID class+="is-invalid" %}
-        {% else %}
-          {% render_field field aria-describedby=helpID class+="is-valid" %}
-        {% endif %} 
-      {% else %}
-        {% render_field field aria-describedby=helpID class+="" %}
+  {# email field #}
+  <div class="form-group">
+    <label for="{{ user_form.email.id_for_label }}">
+      {{ user_form.email.label }}
+      {% if user_form.email.errors %}<span class="text-alert">*</span>
+      {% else %}*{% endif %} :
+    </label>
+
+    <input id="{{ user_form.email.label }}"
+           name="{{ user_form.email.html_name }}"
+           value="{{ user_form.email.value }}"
+           placeholder="Saisissez un email valide"
+           required
+           readonly
+           class="form-control {% if request.method == "POST" %}
+           {% if user_form.email.errors %}is-invalid
+           {% else %}is-valid{% endif %}{% endif %}"
+           aria-describedby="{{ user_form.email.id_for_label }}Help">
+    {% if user_form.email.errors %}
+    {% for error in user_form.email.errors %}
+    <div class="invalid-feedback">
+      {{ error }}
+    </div>
+    {% endfor %}
+    {% endif %}
+  </div>
+
+  {# First and Last name fields #}
+  <div class="form-group row">
+    <div class="col-md-6">
+      <label for="{{ user_form.first_name.id_for_label }}">
+        {{ user_form.first_name.label }}
+        {% if user_form.first_name.errors %}<span class="text-alert">*</span>
+        {% else %}*{% endif %} :
+      </label>
+
+      <input id="{{ user_form.first_name.label }}"
+             name="{{ user_form.first_name.html_name }}"
+             value="{{ user_form.first_name.value }}"
+             placeholder="Saisissez votre prénom"
+           required
+           class="form-control {% if request.method == "POST" %}
+           {% if user_form.first_name.errors %}is-invalid
+           {% else %}is-valid{% endif %}{% endif %}"
+           aria-describedby="{{ user_form.first_name.id_for_label }}Help">
+      {% if user_form.first_name.errors %}
+      {% for error in user_form.first_name.errors %}
+      <div class="invalid-feedback">
+        {{ error }}
+      </div>
+      {% endfor %}
       {% endif %}
+    </div>
+    <div class="col-md-6">
+      <label for="{{ user_form.last_name.id_for_label }}">
+        {{ user_form.last_name.label }}
+        {% if user_form.last_name.errors %}<span class="text-alert">*</span>
+        {% else %}*{% endif %} :
+      </label>
 
-      {% if field.help_text %}
-      <small id="{{ helpID }}" class="form-text text-muted">
-        {{ field.help_text }}
-      </small>
+      <input id="{{ user_form.last_name.label }}"
+             name="{{ user_form.last_name.html_name }}"
+             value="{{ user_form.last_name.value }}"
+             placeholder="Saisissez votre nom"
+           required
+           class="form-control {% if request.method == "POST" %}
+           {% if user_form.last_name.errors %}is-invalid
+           {% else %}is-valid{% endif %}{% endif %}"
+           aria-describedby="{{ user_form.last_name.id_for_label }}Help">
+      {% if user_form.last_name.errors %}
+      {% for error in user_form.last_name.errors %}
+      <div class="invalid-feedback">
+        {{ error }}
+      </div>
+      {% endfor %}
       {% endif %}
-
-      {# We only display errors for POST request ie not the first time #}
-      {% if request.method == "POST" %}
-        {% if field.errors %}
-          {% for error in field.errors %}
-            <div class="invalid-feedback">
-              {{ error }}
-            </div>
-          {% endfor %}
-        {% endif %}
-      {% endif %}
-
-      {% endwith %}
     </div>
   </div>
-  {% endfor %}
 
+  {# Password change #}
+  <div class="form-group">
+    <label for="id_password">
+      Mot de passe :
+    </label>
+    <a href={% url 'admin:password_change' %}>
+    <button id="id_password" class="btn btn-sm btn-primary" type="button">
+      Modifier
+    </button>
+    </a>
+  </div>
+
+  {# Photo field #}
+  <div class="form-group">
+    <label for="{{ profile_form.photo.id_for_label }}">
+      {{ profile_form.photo.label }} :
+    </label>
+
+    <input id="{{ profile_form.photo.label }}"
+           name="{{ profile_form.photo.html_name }}"
+           type="file"
+           class="form-control-file {% if request.method == "POST" %}
+           {% if profile_form.photo.errors %}is-invalid
+           {% else %}is-valid{% endif %}{% endif %}"
+           aria-describedby="{{ profile_form.photo.id_for_label }}Help">
+    {% if profile_form.photo.errors %}
+    {% for error in profile_form.photo.errors %}
+    <div class="invalid-feedback">
+      {{ error }}
+    </div>
+    {% endfor %}
+    {% endif %}
+  </div>
+
+  <div class="form-group row">
+    <div class="col-12">
+      <label for="{{ profile_form.promo.id_for_label }}">
+        {{ profile_form.promo.label }} :
+      </label>
+    </div>
+    <div class="col-3">
+      <input id="{{ profile_form.promo.label }}"
+             name="{{ profile_form.promo.html_name }}"
+             value="{{ profile_form.promo.value }}"
+             type="number"
+             class="form-control {% if request.method == "POST" %}
+             {% if profile_form.promo.errors %}is-invalid
+             {% else %}is-valid{% endif %}{% endif %}"
+             aria-describedby="{{ profile_form.promo.id_for_label }}Help">
+      <small id="{{ profile_form.promo.id_for_label }}Help" class="form-text
+      text-muted pl-1">{{ profile_form.promo.help_text }}</small>
+      {% if profile_form.promo.errors %}
+      {% for error in profile_form.promo.errors %}
+      <div class="invalid-feedback">
+        {{ error }}
+      </div>
+      {% endfor %}
+      {% endif %}
+    </div>
+    <div class="col form-check pt-2">
+      <input id="{{ profile_form.gap_year.id_for_label }}"
+             name="{{ profile_form.gap_year.html_name }}"
+             type="checkbox"
+             {% if profile_form.gap_year.value %}
+             checked=""
+             {% endif %}
+             class="form-check-input {% if request.method == "POST" %}
+             {% if profile_form.gap_year.errors %}is-invalid
+             {% else %}is-valid{% endif %}{% endif %}"
+             aria-describedby="{{ profile_form.gap_year.id_for_label }}Help">
+      <label class="form-check-label"
+             for="{{ profile_form.gap_year.id_for_label }}">
+        J'ai fait une césure.
+      </label>
+    </div>
+  </div>
+
+  {# bio field #}
+  <div class="form-group">
+    <label for="{{ profile_form.bio.id_for_label }}">
+      {{ profile_form.bio.label }} :
+    </label>
+
+    <textarea id="{{ profile_form.bio.label }}"
+              name="{{ profile_form.bio.html_name }}"
+              rows="3"
+              maxlength="{{ profile_form.bio.field.max_length }}"
+              class="form-control {% if request.method == "POST" %}
+              {% if profile_form.bio.errors %}is-invalid
+              {% else %}is-valid{% endif %}{% endif %}"
+              aria-describedby="{{ profile_form.bio.id_for_label }}Help"
+              >{{ profile_form.bio.value }}</textarea>
+  </div>
+
+  {# miscelaneous field #}
+  <div class="form-group">
+    <label for="{{ profile_form.miscellaneous.id_for_label }}">
+      {{ profile_form.miscellaneous.label }} :
+    </label>
+
+    <textarea id="{{ profile_form.miscellaneous.label }}"
+              name="{{ profile_form.miscelaneous.html_name }}"
+              rows="3"
+              maxlength="{{ profile_form.miscellaneous.field.max_length }}"
+              class="form-control {% if request.method == "POST" %}
+              {% if profile_form.miscellaneous.errors %}is-invalid
+              {% else %}is-valid{% endif %}{% endif %}"
+              aria-describedby="{{ profile_form.miscellaneous.id_for_label }}Help"
+              >{{ profile_form.miscellaneous.value }}</textarea>
+  </div>
+      
   <button class="btn btn-primary" type="submit">Save changes</button>
 </form>
 {% endblock content %}
