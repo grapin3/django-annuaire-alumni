@@ -15,6 +15,12 @@ def avatar_directory_path(instance, filename):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    GENDER_MALE = 0
+    GENDER_FEMALE = 1
+    GENDER_CHOICES = [(GENDER_MALE, 'Male'), (GENDER_FEMALE, 'Female')]
+    gender = models.IntegerField(choices=GENDER_CHOICES, blank=True, null=True)
+
     photo = models.ImageField(upload_to=avatar_directory_path,null=True, blank=True)
     city = models.CharField(max_length=500,blank=True, null=True)
     region = models.CharField(max_length=500, blank=True, null=True)

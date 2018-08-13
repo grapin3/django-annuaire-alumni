@@ -34,11 +34,20 @@
       </div>
 
       <div class="card-body collapse collapse-{{profile.user}}">
-        {% if profile.promo != None %}
-        <p>Diplomé(e) en {{profile.promo}}{% if profile.gap_year == True %} après une césure{% endif %}</p>
+        {% if profile.promo %}
+        <p>Diplomé{% if profile.gender == 0 %}{% elif profile.gender == 1 %}e
+        {% else %}(e){% endif %} en {{profile.promo}}
+        {% if profile.gap_year == True %} après une césure{% endif %}</p>
         {% endif %}
-        <p> Bio: {{profile.bio}}</p>
+
+        {% if profile.bio %}
+        <p> Bio: {{profile.bio|truncatewords:25}}</p>
+        {% endif %}
+
+        {% if profile.miscellaneous %}
         <p> Misc: {{profile.miscellaneous}}</p>
+        {% endif %}
+
         {% if profile.city or profile.region or profile.country %}
         <p> Résidence : {% if profile.city != None %}
         {{ profile.city }}, {% endif %}{% if profile.region != None %}
