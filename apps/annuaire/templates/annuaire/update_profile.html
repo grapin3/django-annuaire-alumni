@@ -45,7 +45,7 @@
     {% endif %}
   </div>
 
-  {# email field #}
+  {# Email field #}
   <div class="form-group">
     <label for="{{ user_form.email.id_for_label }}">
       {{ user_form.email.label }}
@@ -121,6 +121,59 @@
       {% endfor %}
       {% endif %}
     </div>
+  </div>
+
+  {# Gender field #}
+  <div class="form-group">
+    <label for="{{profile_form.gender.id_for_label }}">
+      {{ profile_form.gender.label }}
+    </label>
+
+    <select id="{{ profile_form.gender.id_for_label }}"
+            name="{{ profile_form.gender.html_name }}"
+            class="form-control {% if request.method == "POST" %}
+            {% if profile_form.gender.errors %}is-invalid{% else %}is-valid
+            {% endif %}{% endif %}"
+            aria-describedby="{{ profile_form.gender.id_for_label }}Help">
+      {% for tag, value in profile_form.gender.field.choices %}
+      <option value = "{{ tag }}"{% if profile_form.gender.value == tag %}
+              selected{% endif %}>{{ value }}</option>
+      {% endfor %}
+    </select>
+
+      {% if profile_form.gender.errors %}
+      {% for error in profile_form.gender.errors %}
+      <div class="invalid-feedback">
+        {{ error }}
+      </div>
+      {% endfor %}
+      {% endif %}
+  </div>
+
+  {# Localisation fields #}
+  <div class="form-group">
+      <label for="{{ profile_form.city.id_for_label }}">
+        {{ profile_form.city.label }}
+        {% if profile_form.city.errors %}<span class="text-alert">*</span>
+        {% else %}*{% endif %} :
+      </label>
+
+      <input id="{{ profile_form.city.id_for_label }}"
+             name="{{ profile_form.city.html_name }}"
+             value="{% if profile_form.country.value %}{% if profile_form.region.value %}{% if profile_form.city.value %}{{ profile_form.city.value }}, {% endif %}{{ profile_form.region.value }}, {% endif %}{{ profile_form.country.value }}{% endif %}"
+             placeholder="Saisissez votre lieu de résidence"
+             autocomplete="off"
+           class="form-control {% if request.method == "POST" %}
+           {% if profile_form.city.errors %}is-invalid
+           {% else %}is-valid{% endif %}{% endif %}"
+           aria-describedby="{{ profile_form.city.id_for_label }}Help">
+      {% if profile_form.city.errors %}
+      {% for error in profile_form.city.errors %}
+      <div class="invalid-feedback">
+        {{ error }}
+      </div>
+      {% endfor %}
+      {% endif %}
   </div>
 
   {# Password change #}
@@ -267,4 +320,34 @@
     </div>
   </div>
 </form>
+
+{# Script that retrieve the suggestion from photon.komoot.de #}
+<script>
+  $( "#{{ profile_form.city.id_for_label }}" ).keyup(function() {
+    // Make a request to the photon API
+    // We make the request in french, limit to 4 results, center around Paris, and
+    // limited to place or address
+    $.getJSON( "https://photon.komoot.de/api/?q=" + "\"" + $(this).val() + "\""
+      + "&lang=fr&limit=4&lat=48.8561&lon=2.3483&osm_tag=place&osm_tag=highway", function( data ) {
+  // we will store the text to show as a suggestion here
+  var items = [];
+  data = data["features"];
+  // we loop through the result to extract the location name
+  $.each( data, function( key, val ) {
+    if (val["properties"]["osm_value"] == "country") {
+      items.push(val["properties"]["name"]);
+    } else if (val["properties"]["osm_value"] == "state") {
+      items.push(val["properties"]["name"]+", "+
+        val["properties"]["country"]);
+    } else {
+      items.push(val["properties"]["name"]+", "+ val["properties"]["state"]+", "+ val["properties"]["country"]);
+    }
+  });
+  // finally we place it in the suggestion of the field 
+  $( "#{{ profile_form.city.id_for_label }}" ).autocomplete({
+    source: items
+  });
+});
+});
+</script>
 {% endblock content %}

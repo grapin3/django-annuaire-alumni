@@ -48,12 +48,11 @@
         <p> Misc: {{profile.miscellaneous}}</p>
         {% endif %}
 
-        {% if profile.city or profile.region or profile.country %}
-        <p> Résidence : {% if profile.city != None %}
-        {{ profile.city }}, {% endif %}{% if profile.region != None %}
-        {{ profile.region }}, {% endif %}
-        {{ profile.country|default_if_none:"" }}</p>
-        {% endif %}
+        {% if profile.country %}
+        <p> Résidence :
+        {% if profile.region %}
+        {% if profile.city %}
+        {{ profile.city }}, {% endif %}{{ profile.region }}, {% endif %}{{ profile.country }}{% endif %}
       </div>
 
       <div class="card-footer collapse collapse-{{profile.user}}">
