@@ -18,7 +18,9 @@ urlpatterns = [
         path('members', views.show_members, name='show_members'),
 
         #Annuaire
-        path('users', views.show_profiles, name='show_profiles'),
+        path('users/list', views.show_profiles, name='show_profiles'),
+        path('user/<slug:username>', views.display_profile,
+            name='view_profile'),
         ]
 
         #The function static ensure that it only work when using DEBUG for

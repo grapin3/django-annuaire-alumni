@@ -18,9 +18,9 @@ def show_profiles(request):
         })
 
 @login_required
-def display_profile(request, user_id=None):
-    if user_id:
-        user = User.objects.get(pk=user_id)
+def display_profile(request, username=None):
+    if username:
+        user = User.objects.get(username=username)
     else:
         user = request.user
 

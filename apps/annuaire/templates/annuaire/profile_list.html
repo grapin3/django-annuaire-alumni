@@ -22,26 +22,34 @@
           <div class="col text-primary">
             {{ profile.user.first_name|title }} {{ profile.user.last_name|upper }}
           </div>
+          {# display the sandwich #}
           <div class="col col-auto">
             <button type="button" class="btn btn-outline-primary btn-sm"
                                   data-toggle="collapse"
-                                  data-target="#meta{{profile.user}}">
+                                  data-target=".collapse-{{profile.user}}">
               &#9776; 
             </button>
           </div>
         </div>
       </div>
 
-      <div class="card-body collapse" id="meta{{profile.user}}">
+      <div class="card-body collapse collapse-{{profile.user}}">
         {% if profile.promo != None %}
         <p>Diplomé(e) en {{profile.promo}}{% if profile.gap_year == True %} après une césure{% endif %}</p>
         {% endif %}
         <p> Bio: {{profile.bio}}</p>
         <p> Misc: {{profile.miscellaneous}}</p>
+        {% if profile.city or profile.region or profile.country %}
         <p> Résidence : {% if profile.city != None %}
         {{ profile.city }}, {% endif %}{% if profile.region != None %}
         {{ profile.region }}, {% endif %}
         {{ profile.country|default_if_none:"" }}</p>
+        {% endif %}
+      </div>
+
+      <div class="card-footer collapse collapse-{{profile.user}}">
+        <a class="badge" href="{% url 'view_profile' profile.user %}">Voir
+          détail</a>
       </div>
     </div>
   </div>

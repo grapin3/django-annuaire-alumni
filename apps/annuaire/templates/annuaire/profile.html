@@ -17,7 +17,9 @@
   <div class="col-8 col-md-10 col-sm-9">
     <div class="row">
       <div class="col-sm-auto ml-auto order-sm-last">
+        {% if request.user == user %}
         <a class="badge"  href="{% url 'update_profile' %}"> Modifier mon profil</a>
+        {% endif %}
       </div>
       <div class="col order-sm-start">
         <h2>Infos :</h2>
