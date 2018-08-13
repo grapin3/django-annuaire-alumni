@@ -31,8 +31,9 @@ def display_profile(request, username=None):
 @login_required
 def update_profile(request):
     if request.method == "POST":
-        user_form = UserEditForm(request.POST)
-        profile_form = ProfileEditForm(request.POST, request.FILES)
+        user_form = UserEditForm(request.POST, instance=request.user)
+        profile_form = ProfileEditForm(request.POST, request.FILES,
+                instance=request.user.profile)
         #  if user_form.is_valid() and profile_form.is_valid():
         if profile_form.is_valid():
             user_form.save()
