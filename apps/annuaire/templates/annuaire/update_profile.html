@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
-{% load widget_tweaks %}
 
 {% block content %}
 <form method="post" enctype="multipart/form-data">
@@ -58,8 +57,7 @@
            name="{{ user_form.email.html_name }}"
            value="{{ user_form.email.value }}"
            placeholder="Saisissez un email valide"
-           required
-           readonly
+           type="email"
            class="form-control {% if request.method == "POST" %}
            {% if user_form.email.errors %}is-invalid
            {% else %}is-valid{% endif %}{% endif %}"
@@ -75,7 +73,7 @@
 
   {# First and Last name fields #}
   <div class="form-group row">
-    <div class="col-md-6">
+    <div class="col-md-5">
       <label for="{{ user_form.first_name.id_for_label }}">
         {{ user_form.first_name.label }}
         {% if user_form.first_name.errors %}<span class="text-alert">*</span>
@@ -99,7 +97,7 @@
       {% endfor %}
       {% endif %}
     </div>
-    <div class="col-md-6">
+    <div class="col-md-7">
       <label for="{{ user_form.last_name.id_for_label }}">
         {{ user_form.last_name.label }}
         {% if user_form.last_name.errors %}<span class="text-alert">*</span>
