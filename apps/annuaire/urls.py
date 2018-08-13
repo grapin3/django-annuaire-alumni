@@ -12,6 +12,7 @@ urlpatterns = [
         path('accounts/myprofile', views.display_profile, name='profile'),
         path('accounts/update', views.update_profile, name='update_profile'),
         path('accounts/register', views.create_profile, name='register'),
+        path('accounts/delete', views.delete_profile, name="delete_profile"),
 
         #Gestion des membres
         path('create_member', views.create_member, name='create_member'),

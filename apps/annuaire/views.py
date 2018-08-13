@@ -54,6 +54,16 @@ def update_profile(request):
         'profile_form': profile_form,
     })
 
+@login_required
+def delete_profile(request):
+    if request.user.is_superuser:
+        messages.error(request, "Impossible de supprimer le compte d'un \
+        superutilisateur")
+    else:
+        request.user.delete()
+        messages.info(request, "Votre compte est désormais supprimé :(")
+    return redirect('home')
+
 def create_profile(request):
     form = RegistrationForm(request.POST or None)
     
