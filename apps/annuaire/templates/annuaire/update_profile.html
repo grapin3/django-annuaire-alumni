@@ -327,8 +327,8 @@
     // Make a request to the photon API
     // We make the request in french, limit to 4 results, center around Paris, and
     // limited to place or address
-    $.getJSON( "https://photon.komoot.de/api/?q=" + "\"" + $(this).val() + "\""
-      + "&lang=fr&limit=4&lat=48.8561&lon=2.3483&osm_tag=place&osm_tag=highway", function( data ) {
+    $.getJSON( "https://photon.komoot.de/api/", {q:$(this).val(), lang: "fr",
+      osm_tag:"place", limit:4, lat:48.8561, lon:2.3483}, function( data ) {
   // we will store the text to show as a suggestion here
   var items = [];
   data = data["features"];
