@@ -22,13 +22,13 @@
         {% endif %}
       </div>
       <div class="col order-sm-start">
-        <h2>Infos :</h2>
+        <h2>{{ user.first_name }} {{ user.last_name }} :</h2>
       </div>
     </div>
 
     <dl class="row">
       <dt class="col-md-4 col-lg-3 text-muted">
-      Pseudonyme :
+      Pseudonyme :
       </dt>
       <dd class="col-md-8 col-lg-9 align-self-end">
       {{ user.username|title }}
@@ -41,6 +41,28 @@
       <dd class="col-md-8 col-lg-9 align-self-end">
       {{ user.profile.promo }}{% if user.profile.gap_year %}, après une
       césure{% endif %}
+      </dd>
+      {% endif %}
+
+      {% if user.profile.country %}
+      <dt class="col-md-4 col-lg-3 text-muted">
+      Résidence :
+      </dt>
+      <dd class="col-md-8 col-lg-9 align-self-end">
+      {% if user.profile.region %}
+        {% if user.profile.city %}
+          {{ user.profile.city }}, {% endif %}
+        {{ user.profile.region }}, {% endif %}
+      {{ user.profile.country }}
+      </dd>
+      {% endif %}
+
+      {% if user.email %}
+      <dt class="col-md-4 col-lg-3 text-muted">
+      Email :
+      </dt>
+      <dd class="col-md-8 col-lg-9 align-self-end">
+        {{ user.email }}
       </dd>
       {% endif %}
 

@@ -52,7 +52,10 @@
         <p> Résidence :
         {% if profile.region %}
         {% if profile.city %}
-        {{ profile.city }}, {% endif %}{{ profile.region }}, {% endif %}{{ profile.country }}{% endif %}
+        {{ profile.city }}, {% endif %}{{ profile.region }}, {% endif %}{{ profile.country }}
+        </p>
+        {% endif %}
+
       </div>
 
       <div class="card-footer collapse collapse-{{profile.user}}">
