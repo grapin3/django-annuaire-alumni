@@ -5,16 +5,16 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib import messages
 
 from .models import Member
-from .form import *
+from .forms import *
 
 import logging
 logger=logging.getLogger(__name__)
 
 @login_required
 def show_profiles(request):
-    profile_list=Profile.objects.all()
+    user_list=User.objects.filter(is_active=True)
     return render(request, 'annuaire/profile_list.html',{
-        'profile_list': profile_list,
+        'user_list': user_list,
         })
 
 @login_required
