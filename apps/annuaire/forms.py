@@ -4,6 +4,16 @@ from django.contrib.auth.forms import UserCreationForm
 
 from .models import Profile, Member
 
+class UserEditForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(UserEditForm, self).__init__(*args, **kwargs)
+        self.fields['first_name'].required = True
+        self.fields['last_name'].required = True
+
+    class Meta:
+        model = User
+        fields = ('username', 'first_name', 'last_name', 'email',)
+
 class ProfileEditForm(forms.ModelForm):
     class Meta:
         model = Profile
@@ -32,17 +42,17 @@ class ProfileEditForm(forms.ModelForm):
             else:
                 cleaned_data["city"] = None
             
-class UserEditForm(forms.ModelForm):
-    class Meta:
-        model = User
-        fields = ('username', 'first_name', 'last_name', 'email',)
-
 class MemberForm(forms.ModelForm):
     class Meta:
         model = Member
         fields = ('firstname', 'lastname',)
 
 class RegistrationForm(UserCreationForm):
+    def __init__(self, *args, **kwargs):
+        super(RegistrationForm, self).__init__(*args, **kwargs)
+        self.fields['first_name'].required = True
+        self.fields['last_name'].required = True
+
     class Meta:
         model = User
         fields = ('username', 'password1', 'password2', 'first_name',
