@@ -17,7 +17,7 @@ def show_profiles(request):
         'user_list': user_list,
         })
 
-@login_required
+    @login_required
 def display_profile(request, username=None):
     if username:
         user = User.objects.get(username=username)
@@ -28,7 +28,7 @@ def display_profile(request, username=None):
         'user': user,
         })
 
-@login_required
+    @login_required
 def update_profile(request):
     if request.method == "POST":
         user_form = UserEditForm(request.POST, instance=request.user)
@@ -48,12 +48,13 @@ def update_profile(request):
             if len(location)>=3:
                 Profile.city = location[-3]
             Profile.save()
-            
+
             messages.success(request, 'Votre profile a bien été mis à jour \o/')
             return redirect('profile')
         else:
+            location = ""
             messages.error(request, 'Oups, il semblerait que vous ayez fait \
-            des erreurs. Merci de les corriger.')
+                    des erreurs. Merci de les corriger.')
     else:
         user_form = UserEditForm(instance=request.user)
         profile_form = ProfileEditForm(instance=request.user.profile,)
@@ -65,13 +66,13 @@ def update_profile(request):
         'user_form': user_form,
         'profile_form': profile_form,
         'location':location,
-    })
+        })
 
-@login_required
+    @login_required
 def delete_profile(request):
     if request.user.is_superuser:
         messages.error(request, "Impossible de supprimer le compte d'un \
-        superutilisateur")
+                superutilisateur")
     else:
         request.user.delete()
         messages.info(request, "Votre compte est désormais supprimé :(")
@@ -79,7 +80,7 @@ def delete_profile(request):
 
 def create_profile(request):
     form = RegistrationForm(request.POST or None)
-    
+
     if form.is_valid():
         user = form.save(commit=False)
         user.is_active = False
@@ -87,22 +88,22 @@ def create_profile(request):
         messages.success(request, "Votre compte a bien été crée. Il faut \
                 maintenant qu'un modérateur l'active.")
         return redirect('home')
-        
+
     logger.info("Rendering Create Profile page")
     return render(request, 'annuaire/create_profile.html', {
         'form': form,
         })
 
-@login_required
+    @login_required
 def show_members(request):
     member_list= Member.objects.all()
     return render(request, 'annuaire/member_list.html',{
         'member_list': member_list,
         })
 
-@login_required
+    @login_required
 def create_member(request):
-        member_form = MemberRegistrationForm(request.POST, request.FILES)
+    member_form = MemberRegistrationForm(request.POST, request.FILES)
 
         if member_form.is_valid():
             member_form.save()
@@ -115,5 +116,5 @@ def create_member(request):
                 'member_form': member_form,
                 })
 
-def index(request):
-    return render(request,'annuaire/index.html')
+            def index(request):
+                return render(request,'annuaire/index.html')

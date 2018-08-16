@@ -2,8 +2,8 @@
 
 {% if not field.is_hidden %}
 {% with field.field.required as required %}
-<label for="{{ id }}">
-  {{ contents }}{% if required %}* {% endif %}:
+<label for="{{ id }}"{{ attrs }}>
+  {{ contents }}{% if required %}*{% endif %} :
 </label>
 {% endwith %}
 {% endif %}

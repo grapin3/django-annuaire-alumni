@@ -1,14 +1,15 @@
+{% with field.field.widget.input_type as input_type %}
 <input id="{{ id }}"
        name="{{ name }}"
        {% if value %}
        value="{{ value }}"
        {% endif %}
        placeholder="{{ placeholder }}"
-       type="{{ type }}"
+       type="{{ input_type }}"
        {% if required %}required {% endif %}
-       {% if type == "checkbox" %}
+       {% if input_type == "checkbox" %}
        class="form-check-input
-       {% elif type == "file" %}
+       {% elif input_type == "file" %}
        class="form-control-file 
        {% else %}
        class="form-control 
@@ -17,3 +18,4 @@
        {% else %}is-valid{% endif %}{% endif %}"
        {{ attrs }}
        aria-describedby="{{ id }}_help-text">
+{% endwith %}

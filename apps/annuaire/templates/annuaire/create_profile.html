@@ -1,11 +1,26 @@
 {% extends 'base.html' %}
+{% load bootstrap_forms %}
 
 {% block content %}
 <form method="post" enctype="multipart/form-data" >
   {% csrf_token %}
-  {{ form.as_p }}
-  {{ user_form.as_p }}
-  {{ profile_form.as_p }}
-  <button type="submit" class="btn">Créer</button>
+  {% for field in form %}
+  <div class="form-group row">
+    {% label field  attrs="class=col-sm-4 col-md-3 col-lg-2 col-form-label" %}
+    <div class="col-sm-8 col-md-9 col-lg-10">
+      {% input_field field request.method %}
+      {% help_text field %}
+      {% errors field %}
+    </div>
+  </div>
+  {% endfor %}
+
+  <div class="row">
+    <div class="col-sm-4 col-md-3 col-lg-2">
+    </div>
+    <div class="col-sm-8 col-md-9 col-lg-10">
+      <button type="submit" class="btn btn-primary">S'inscrire</button>
+    </div>
+  </div>
 </form>
 {% endblock content %}

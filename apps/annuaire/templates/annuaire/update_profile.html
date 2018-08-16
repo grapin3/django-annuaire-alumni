@@ -29,7 +29,7 @@
   <div class="form-group">
     {% label user_form.email %}
 
-    {% input_field user_form.email request.method 'lionel@jospin2022.fr' 'email' %}
+    {% input_field user_form.email request.method 'lionel@jospin2022.fr' %}
     {% errors user_form.email %}
   </div>
 
@@ -72,7 +72,7 @@
   <div class="form-group">
     {% label profile_form.location %}
 
-    {% input_field profile_form.location request.method "Cintegabelle, Occitanie, France" "text" location %}
+    {% input_field profile_form.location request.method "Cintegabelle, Occitanie, France" location %}
     {% errors profile_form.location %}
   </div>
 
@@ -92,7 +92,7 @@
   <div class="form-group">
     {% label profile_form.photo %}
 
-    {% input_field profile_form.photo request.method input_type="file" %}
+    {% input_field profile_form.photo request.method %}
     {% errors profile_form.photo %}
   </div>
 
@@ -100,12 +100,12 @@
     {% label profile_form.promo %}
     <div class="row">
       <div class="col-3">
-        {% input_field profile_form.promo request.method 2002 input_type="number" %}
+        {% input_field profile_form.promo request.method 2002 %}
         {% help_text profile_form.promo %}
         {% errors profile_form.promo %}
       </div>
       <div class="col form-check pt-2">
-        {% input_field profile_form.gap_year request.method input_type="checkbox" %}
+        {% input_field profile_form.gap_year request.method %}
         {% label profile_form.gap_year "J'ai fait une césure" %}
       </div>
     </div>
