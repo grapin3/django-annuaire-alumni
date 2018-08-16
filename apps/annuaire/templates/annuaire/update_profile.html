@@ -70,13 +70,10 @@
 
   {# Localisation fields #}
   <div class="form-group">
-    {% label profile_form.city %}
+    {% label profile_form.location %}
 
-    {{ profile_form.city.value|addcoma }}
-    {% with profile_form.city.value|addcoma|add:profile_form.region.value|addcoma|add:profile_form.country.value as location %}
-    {% input_field profile_form.city request.method "Cintegabelle, Occitanie, France" "text" location %}
-    {% endwith %}
-    {% errors profile_form.city %}
+    {% input_field profile_form.location request.method "Cintegabelle, Occitanie, France" "text" location %}
+    {% errors profile_form.location %}
   </div>
 
   {# Password change #}
@@ -182,7 +179,7 @@
 
 {# Script that retrieve the suggestion from photon.komoot.de #}
 <script>
-  $( "#{{ profile_form.city.id_for_label }}" ).keyup(function() {
+  $( "#{{ profile_form.location.id_for_label }}" ).keyup(function() {
     // Make a request to the photon API
     // We make the request in french, limit to 4 results, center around Paris, and
     // limited to place or address
@@ -203,7 +200,7 @@
           }
         });
         // finally we place it in the suggestion of the field 
-        $( "#{{ profile_form.city.id_for_label }}" ).autocomplete({
+        $( "#{{ profile_form.location.id_for_label }}" ).autocomplete({
           source: items
         });
       });

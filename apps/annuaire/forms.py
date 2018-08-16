@@ -15,33 +15,15 @@ class UserEditForm(forms.ModelForm):
         fields = ('username', 'first_name', 'last_name', 'email',)
 
 class ProfileEditForm(forms.ModelForm):
+    # ToDo: add a proper clean function for the location field
+    location = forms.CharField(label="Résidence", required=False)
     class Meta:
         model = Profile
-        fields = ('photo', 'bio', 'promo', 'city', 'region', 'country',
-                'gender', 'gap_year', 'miscellaneous',)
+        fields = ('photo', 'bio', 'promo', 'gender', 'gap_year', 'miscellaneous',)
         help_texts = {
                 'promo': "Année de votre diplome",
                 }
 
-    def clean(self):
-        cleaned_data = super(ProfileEditForm, self).clean()
-        city = cleaned_data.get('city')
-        region = cleaned_data.get('region')
-        country = cleaned_data.get('country')
-
-        if city:
-            city = city.split(", ")
-            cleaned_data["country"] = None
-            cleaned_data["region"] = None
-            if len(city)>=1:
-                cleaned_data["country"] = city[-1]
-            if len(city)>=2:
-                cleaned_data["region"] = city[-2]
-            if len(city)>=3:
-                cleaned_data["city"] = city[-3]
-            else:
-                cleaned_data["city"] = None
-            
 class MemberForm(forms.ModelForm):
     class Meta:
         model = Member

@@ -1,6 +1,8 @@
 <input id="{{ id }}"
        name="{{ name }}"
+       {% if value %}
        value="{{ value }}"
+       {% endif %}
        placeholder="{{ placeholder }}"
        type="{{ type }}"
        {% if required %}required {% endif %}
@@ -13,4 +15,5 @@
        {% endif %}{% if post %}
        {% if field.errors %}is-invalid
        {% else %}is-valid{% endif %}{% endif %}"
+       {{ attrs }}
        aria-describedby="{{ id }}_help-text">

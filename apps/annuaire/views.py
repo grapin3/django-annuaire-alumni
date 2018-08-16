@@ -36,7 +36,19 @@ def update_profile(request):
                 instance=request.user.profile)
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
-            profile_form.save()
+            Profile = profile_form.save(commit=False)
+            location = profile_form.cleaned_data['location'].split(", ")
+            Profile.city = None
+            Profile.region = None
+            Profile.country = None
+            if len(location)>=1:
+                Profile.country = location[-1]
+            if len(location)>=2:
+                Profile.region = location[-2]
+            if len(location)>=3:
+                Profile.city = location[-3]
+            Profile.save()
+            
             messages.success(request, 'Votre profile a bien été mis à jour \o/')
             return redirect('profile')
         else:
@@ -45,9 +57,14 @@ def update_profile(request):
     else:
         user_form = UserEditForm(instance=request.user)
         profile_form = ProfileEditForm(instance=request.user.profile,)
+        location = [request.user.profile.city,
+                request.user.profile.region, request.user.profile.country]
+        location = filter(lambda x: x != None, location)
+        location = (", ").join(location)
     return render(request, 'annuaire/update_profile.html', {
         'user_form': user_form,
         'profile_form': profile_form,
+        'location':location,
     })
 
 @login_required

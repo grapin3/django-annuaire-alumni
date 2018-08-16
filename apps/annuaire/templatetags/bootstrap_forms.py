@@ -1,4 +1,5 @@
 from django.template import Library
+from django.forms.utils import flatatt
 
 register = Library()
 
@@ -19,9 +20,9 @@ def help_text(field):
 
 @register.inclusion_tag("annuaire/bootstrap_forms/input_field.html")
 def input_field(field, method, placeholder="", input_type="text", value=None, attrs=None):
-    #  if isinstance(attrs, basestring):
-        #  attrs = [tuple(pair).split('=') for pair in attrs.split(',')]
-    #  attrs = dict(attrs or {})
+    if isinstance(attrs, str):
+        attrs = [tuple(pair).split('=') for pair in attrs.split(',')]
+    attrs = dict(attrs or {})
     widget = field.field.widget
     for_id = widget.id_for_label(widget.attrs.get('id') or field.auto_id)
     name = field.html_name
@@ -29,11 +30,5 @@ def input_field(field, method, placeholder="", input_type="text", value=None, at
     post = method == "POST"
     return {'field':field, 'id':for_id, 'name':name, 'type':input_type,
             'value':value, 'placeholder':placeholder,
-            'required':field.field.required, 'post':post}
-
-@register.filter
-def addcoma(string):
-    if string == None:
-        return ""
-    else:
-        return "{}, ".format(string)
+            'required':field.field.required, 'post':post,
+            'attrs':flatatt(attrs),}
