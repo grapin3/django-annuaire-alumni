@@ -1,0 +1,16 @@
+<input id="{{ id }}"
+       name="{{ name }}"
+       value="{{ value }}"
+       placeholder="{{ placeholder }}"
+       type="{{ type }}"
+       {% if required %}required {% endif %}
+       {% if type == "checkbox" %}
+       class="form-check-input
+       {% elif type == "file" %}
+       class="form-control-file 
+       {% else %}
+       class="form-control 
+       {% endif %}{% if post %}
+       {% if field.errors %}is-invalid
+       {% else %}is-valid{% endif %}{% endif %}"
+       aria-describedby="{{ id }}_help-text">

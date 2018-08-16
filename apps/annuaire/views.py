@@ -34,14 +34,9 @@ def update_profile(request):
         user_form = UserEditForm(request.POST, instance=request.user)
         profile_form = ProfileEditForm(request.POST, request.FILES,
                 instance=request.user.profile)
-        #  if user_form.is_valid() and profile_form.is_valid():
-        if profile_form.is_valid():
+        if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
-            #  profile = profile_form.save(commit=False)
-            #  profile.user.email = profile_form.cleaned_data['email']
-            #  profile.user.save()
-            #  profile.save()
             messages.success(request, 'Votre profile a bien été mis à jour \o/')
             return redirect('profile')
         else:
