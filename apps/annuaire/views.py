@@ -50,7 +50,7 @@ def profile_update(request):
             Profile.save()
 
             messages.success(request, 'Votre profile a bien été mis à jour \o/')
-            return redirect('profile')
+            return redirect('profile_display')
         else:
             location = ""
             messages.error(request, 'Oups, il semblerait que vous ayez fait \
