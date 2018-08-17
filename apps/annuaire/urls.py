@@ -6,22 +6,21 @@ from django.conf.urls.static import static
 from . import views
 
 urlpatterns = [
-        path('', views.index, name='home'),
-
         #Gestion des profiles utilisateurs
-        path('accounts/myprofile', views.display_profile, name='profile'),
-        path('accounts/update', views.update_profile, name='update_profile'),
-        path('accounts/register', views.create_profile, name='register'),
-        path('accounts/delete', views.delete_profile, name="delete_profile"),
+        path('accounts/myprofile', views.profile_display, name='display_profile'),
+        path('accounts/update', views.profile_update, name='update_profile'),
+        path('accounts/register', views.profile_register,
+            name='register_profile'),
+        path('accounts/delete', views.profile_delete, name="delete_profile"),
 
         #Gestion des membres
-        path('create_member', views.create_member, name='create_member'),
-        path('members', views.show_members, name='show_members'),
+        path('create_member', views.member_register, name='create_member'),
+        path('members', views.member_list, name='show_members'),
 
         #Annuaire
-        path('users/list', views.show_profiles, name='show_profiles'),
-        path('user/<slug:username>', views.display_profile,
-            name='view_profile'),
+        path('users/list', views.profile_list, name='list_profiles'),
+        path('user/<slug:username>', views.profile_display,
+            name='display_profile'),
         ]
 
         #The function static ensure that it only work when using DEBUG for

@@ -21,10 +21,9 @@ from django.conf import settings
 from django.conf.urls import include, url
 
 urlpatterns = [
+    path('', TemplateView.as_view(template_name='index.html'), name='home'),
     path('admin/', admin.site.urls),
-    # Add the django.contrib.auth views
     path('accounts/', include('django.contrib.auth.urls')),
-    path('user/', include('apps.annuaire.urls')),
     path('', include('apps.annuaire.urls')),
     ]
 
