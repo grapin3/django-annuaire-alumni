@@ -17,7 +17,7 @@ def show_profiles(request):
         'user_list': user_list,
         })
 
-    @login_required
+@login_required
 def display_profile(request, username=None):
     if username:
         user = User.objects.get(username=username)
@@ -28,7 +28,7 @@ def display_profile(request, username=None):
         'user': user,
         })
 
-    @login_required
+@login_required
 def update_profile(request):
     if request.method == "POST":
         user_form = UserEditForm(request.POST, instance=request.user)
@@ -68,7 +68,7 @@ def update_profile(request):
         'location':location,
         })
 
-    @login_required
+@login_required
 def delete_profile(request):
     if request.user.is_superuser:
         messages.error(request, "Impossible de supprimer le compte d'un \
@@ -94,27 +94,27 @@ def create_profile(request):
         'form': form,
         })
 
-    @login_required
+@login_required
 def show_members(request):
     member_list= Member.objects.all()
     return render(request, 'annuaire/member_list.html',{
         'member_list': member_list,
         })
 
-    @login_required
+@login_required
 def create_member(request):
     member_form = MemberRegistrationForm(request.POST, request.FILES)
 
-        if member_form.is_valid():
-            member_form.save()
-            messages.success(request, 'The member was successfully created!')
-            return render(request, 'annuaire/member_created.html',{
-                'member_form': member_form,
-                })
-        else :
-            return render(request, 'annuaire/create_member.html',{
-                'member_form': member_form,
-                })
+    if member_form.is_valid():
+        member_form.save()
+        messages.success(request, 'The member was successfully created!')
+        return render(request, 'annuaire/member_created.html',{
+            'member_form': member_form,
+            })
+    else :
+        return render(request, 'annuaire/create_member.html',{
+            'member_form': member_form,
+            })
 
-            def index(request):
-                return render(request,'annuaire/index.html')
+def index(request):
+    return render(request,'annuaire/index.html')

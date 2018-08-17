@@ -1,11 +1,11 @@
 {% with field.field.widget.input_type as input_type %}
 <input id="{{ id }}"
        name="{{ name }}"
+       type="{{ input_type }}"
        {% if value %}
-       value="{{ value }}"
+       value="{{ value|stringformat:'s' }}"
        {% endif %}
        placeholder="{{ placeholder }}"
-       type="{{ input_type }}"
        {% if required %}required {% endif %}
        {% if input_type == "checkbox" %}
        class="form-check-input

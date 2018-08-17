@@ -24,9 +24,9 @@ class ProfileEditForm(forms.ModelForm):
                 'promo': "Année de votre diplome",
                 }
 
-        class MemberForm(forms.ModelForm):
-            class Meta:
-                model = Member
+class MemberForm(forms.ModelForm):
+    class Meta:
+        model = Member
         fields = ('firstname', 'lastname',)
 
 class RegistrationForm(UserCreationForm):
