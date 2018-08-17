@@ -1,7 +1,6 @@
 .DS_Store
 media
 db.sqlite3
-apps/*/migrations/*
 *.sublime-project
 *.sublime-workspace
 
