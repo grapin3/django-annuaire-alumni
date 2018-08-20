@@ -1,7 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<p>Bienvenue sur l'index</p>
-<p><a href="{% url 'create_member' %}"> Create a member </a></p>
-<p><a href="{% url 'show_members' %}"> List members </a></p>
+<h1>Bienvenue</h1>
+
+<p>Bienvenue sur le site de l'association Salle T Alumni.</p>
+<p>Ce site étant destiné aux membres de l'association, seul ces derniers peuvent
+accéder à son contenu. Si tu es membre, tu peux demander la création d'un
+compte <a href="{% url 'register_profile' %}">ici</a>. Ta demande sera transmise
+à un membre du bureau qui devra la valider avant que tu puisses te
+connecter.</p>
 {% endblock content %}

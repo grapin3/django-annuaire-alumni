@@ -7,7 +7,7 @@
   </div>
   <div class="col-4">
     <input class="form-control"
-           id="myInput"
+           id="filterSearchField"
            type="text"
            placeholder="Rechercher ...">
   </div>
@@ -15,8 +15,8 @@
 
 <div class="row" id="filterList">
   {% for user in user_list %}
-  <section class="col-sm-6 col-lg-4 mb-2" id="">
-    <div class="card border-primary" id="">
+  <div class="col-sm-6 col-lg-4 mb-2 filterItem">
+    <div class="card border-primary">
       <div class="card-header" id="header">
         <div class="row justify-content-between align-items-center">
           <div class="col text-primary">
@@ -26,57 +26,59 @@
           <div class="col col-auto">
             <button type="button" class="btn btn-outline-primary btn-sm"
                                   data-toggle="collapse"
-                                  data-target=".collapse-{{ user }}">
+                                  data-target="#collapse-{{ user }}">
               &#9776; 
             </button>
           </div>
         </div>
       </div>
 
-      <div class="card-body collapse collapse-{{ user }}">
-        {% if user.profile.promo %}
-        <p>Diplomé{% if user.profile.gender == 0 %}{% elif user.profile.gender == 1 %}e
-        {% else %}(e){% endif %} en {{user.profile.promo}}
-        {% if user.profile.gap_year == True %} après une césure{% endif %}</p>
-        {% endif %}
+      <div id="collapse-{{ user }}" class="collapse">
+        <div class="card-body">
+          {% if user.profile.promo %}
+          <p>Diplomé{% if user.profile.gender == 0 %}{% elif user.profile.gender == 1 %}e
+          {% else %}(e){% endif %} en {{user.profile.promo}}
+          {% if user.profile.gap_year == True %} après une césure{% endif %}</p>
+          {% endif %}
 
-        {% if user.profile.bio %}
-        <p> Bio: {{user.profile.bio|truncatewords:25}}</p>
-        {% endif %}
+          {% if user.profile.bio %}
+          <p> Bio: {{user.profile.bio|truncatewords:25}}</p>
+          {% endif %}
 
-        {% if user.profile.miscellaneous %}
-        <p> Misc: {{user.profile.miscellaneous}}</p>
-        {% endif %}
+          {% if user.profile.miscellaneous %}
+          <p> Misc: {{user.profile.miscellaneous}}</p>
+          {% endif %}
 
-        {% if user.profile.country %}
-        <p> Résidence :
-        {% if user.profile.region %}
-        {% if user.profile.city %}
-        {{ user.profile.city }}, {% endif %}{{ user.profile.region }}, {% endif %}
-        {{ user.profile.country }}
-        </p>
-        {% endif %}
+          {% if user.profile.country %}
+          <p> Résidence :
+          {% if user.profile.region %}
+          {% if user.profile.city %}
+          {{ user.profile.city }}, {% endif %}{{ user.profile.region }}, {% endif %}
+          {{ user.profile.country }}
+          </p>
+          {% endif %}
 
-        <p> Membre depuis : {{ user.profile.member.registration_date.year }}
-        </p>
+          <p> Membre depuis : {{ user.profile.member.registration_date.year }}
+          </p>
 
-      </div>
+        </div>
 
-      <div class="card-footer collapse collapse-{{ user }}">
-        <a class="badge" href="{% url 'display_profile' user %}">Voir
-          détail</a>
+        <div class="card-footer">
+          <a class="badge" href="{% url 'display_profile' user %}">Voir
+            détail</a>
+        </div>
       </div>
     </div>
-  </section>
+  </div>
   {% endfor %}
 </div>
 
 
 <script>
   $(document).ready(function(){
-    $("#myInput").on("keyup", function() {
+    $("#filterSearchField").on("keyup", function() {
       var value = $(this).val().toLowerCase();
-      $("#filterList section").filter(function() {
+      $("#filterList .filterItem").filter(function() {
         $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
       })
     });
