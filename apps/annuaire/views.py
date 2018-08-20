@@ -74,7 +74,9 @@ def profile_delete(request):
         messages.error(request, "Impossible de supprimer le compte d'un \
                 superutilisateur")
     else:
+        username = request.user.username
         request.user.delete()
+        logger.info("User %s has been deleted", username)
         messages.info(request, "Votre compte est désormais supprimé :(")
     return redirect('home')
 
@@ -88,8 +90,6 @@ def profile_register(request):
         messages.success(request, "Votre compte a bien été crée. Il faut \
                 maintenant qu'un modérateur l'active.")
         return redirect('home')
-
-    logger.info("Rendering Create Profile page")
     return render(request, 'annuaire/profile_register.html', {
         'form': form,
         })

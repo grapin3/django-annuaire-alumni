@@ -71,9 +71,9 @@ class Member(models.Model):
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
-        logger.info("Creating user for %s" % instance.username)
+        logger.info("User %s has been created", instance.username)
         Profile.objects.create(user=instance)
-        logger.info("New profile created for %s" % instance.username)
+        logger.info("Profile %s has been created", instance.username)
 
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):

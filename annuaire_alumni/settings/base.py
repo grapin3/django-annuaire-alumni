@@ -137,4 +137,69 @@ LOGOUT_REDIRECT_URL = 'home'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
+#Define the css class name to append depending on the type of messages
 MESSAGE_TAGS = { messages.ERROR: 'danger', messages.DEBUG: 'secondary',}
+
+#Logging setup
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    #Define two outputs format, a verbose one and a short one
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} {asctime}:{message}',
+            'style': '{',
+        },
+    },
+    'filters': {
+        # How to define a custom filter
+        #  'special': {
+            #  '()': 'annuaire_alumni.logging.SpecialFilter',
+            #  'foo': 'bar',
+        #  },
+        # A filter that only passes if DEBUG == True. It won't work in
+        # production environnement
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+            },
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse',
+            },
+    },
+    'handlers': {
+        'console': {
+            'level': 'INFO',
+            #  'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose'
+            },
+        'mail_admins': {
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler',
+            'filters': ['require_debug_false']
+            }
+        },
+    'loggers': {
+        # We don't setup the logging for the django logger as the default seems
+        # to be just fine
+        #  'django': {
+            #  'handlers': ['console'],
+            #  'propagate': True,
+        #  },
+        #  'django.request': {
+            #  'handlers': ['mail_admins'],
+            #  'level': 'ERROR',
+            #  'propagate': False,
+        #  },
+        'apps.annuaire': {
+            'handlers': ['console', 'mail_admins'],
+            'level': 'INFO',
+            #  'filters': ['special']
+        }
+    }
+}
+
