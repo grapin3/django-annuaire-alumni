@@ -3,23 +3,8 @@ from django.conf import settings
 
 DEBUG==True
 
-"""
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-        },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['console'],
-            'level': os.getenv('DJANGO_LOG_LEVEL', 'DEBUG'),
-        },
-    },
-}
-"""
+LOGGING['loggers']['apps.annuaire']['level'] = 'DEBUG'
+LOGGING['handlers']['console']['level'] = 'DEBUG'
 
 INSTALLED_APPS += [
         'debug_toolbar',

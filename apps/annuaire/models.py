@@ -1,7 +1,7 @@
 from django.db import models
 
 from django.contrib.auth.models import User
-from django.db.models.signals import post_save, pre_save
+from django.db.models.signals import post_save, pre_save, post_init
 from django.dispatch import receiver
 from django.utils import timezone
 from datetime import timedelta
@@ -38,6 +38,17 @@ class Profile(models.Model):
     def __str__(self):
         return self.user.username
 
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        logger.info("User %s has been created", instance.username)
+        Profile.objects.create(user=instance)
+        logger.info("Profile %s has been created", instance.username)
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()
+
 def one_year_delta():
     return timezone.now() + timedelta(days=365)
 
@@ -49,8 +60,9 @@ class Member(models.Model):
             default=timezone.now)
     expiration_date = models.DateField("date d'expiration",
             default=one_year_delta)
-    profile = models.OneToOneField(Profile,
+    user = models.OneToOneField(User,
             on_delete=models.SET_NULL,null=True, blank = True)
+    original_user_id = None
 
     # properties used to display a tick in the admin zone
     # We define the method
@@ -67,17 +79,22 @@ class Member(models.Model):
 
     def __str__(self):
         return self.firstname+" "+self.lastname
+            
+# The next two function are used to create a memory in order to know if the
+# user field changed. And if so it triggers a save() on the relevant User to
+# activate or desactivate them
+@receiver( post_init, sender=Member)
+def set_original_user_id_id(sender, instance, **kwargs):
+    instance.original_user_id = instance.user_id
 
-@receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        logger.info("User %s has been created", instance.username)
-        Profile.objects.create(user=instance)
-        logger.info("Profile %s has been created", instance.username)
-
-@receiver(post_save, sender=User)
-def save_user_profile(sender, instance, **kwargs):
-    instance.profile.save()
+@receiver( post_save, sender=Member)
+def check_for_new_user(sender, instance, **kwargs):
+    if instance.original_user_id != instance.user_id:
+        if instance.original_user_id:
+            User.objects.get(pk=instance.original_user_id).save()
+        if instance.user:
+            instance.user.save()
+    instance.original_user_id = instance.user_id
 
 @receiver(pre_save, sender=User)
 def toggle_active_user(sender, instance, **kwargs):
@@ -89,16 +106,11 @@ def toggle_active_user(sender, instance, **kwargs):
         instance.is_active = True
     else :
         try:
-            instance.profile.member
-            instance.is_active = True
+            instance.member
+            if not instance.is_active:
+                instance.is_active = True
+            logger.info("User %s has been activated", instance.username)
         except:
-            instance.is_active = False
-            
-# ToDo: this needs to be rework with the link made on User not on Profile
-@receiver(post_save, sender=Member)
-def save_member_profile(sender, instance, **kwargs):
-    try:
-        instance.profile
-        instance.profile.user.save()
-    except:
-        pass
+            if instance.is_active:
+                instance.is_active = False
+            logger.info("User %s has been deactivated", instance.username)
