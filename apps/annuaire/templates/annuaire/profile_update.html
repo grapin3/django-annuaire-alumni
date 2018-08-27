@@ -61,7 +61,7 @@
             aria-describedby="{{ profile_form.gender.id_for_label }}Help">
       {% for tag, value in profile_form.gender.field.choices %}
       <option value = "{{ tag }}"{% if profile_form.gender.value == tag %}
-              selected{% endif %}>{{ value }}</option>
+            selected{% endif %}>{{ value }}</option>
       {% endfor %}
     </select>
 
@@ -125,6 +125,44 @@
               aria-describedby="{{ profile_form.bio.id_for_label }}Help"
               >{{ profile_form.bio.value }}</textarea>
     {% errors profile_form.bio %}
+  </div>
+
+  {# leisure field #}
+  {# this field is tricky as it use select2 so we render it manually #}
+  <div class="form-group">
+    {% label profile_form.leisure %}
+    <select class="form-control {% if request.method == 'POST' %}
+    {% if profile_form.leisure.errors %} is-invalid
+    {% else %} is-valid	{% endif %}
+    {% endif %}"
+            id="{{ profile_form.leisure.id_for_label }}"
+            name="{{ profile_form.leisure.html_name }}"
+            multiple="multiple">
+      {% for leisureTag, selected in leisureTags %}
+      <option value="{{ leisureTag.tag }}"{% if selected %}
+              selected="selected"{% endif %}>
+      {{ leisureTag.tag }}
+      </option>
+      {% endfor %}
+    </select>
+    {% errors profile_form.leisure %}
+
+    <script charset="utf-8">
+      $("#{{ profile_form.leisure.id_for_label }}").select2( {
+      tags: true,
+      createTag: function(params) {
+        var term = $.trim(params.term);
+        if (term==""){return null;}
+        return {
+          id: term,
+          value: term,
+          text: term
+        }
+      },
+      width: "100%",
+      theme: "bootstrap4",
+      });
+    </script>
   </div>
 
   {# miscelaneous field #}
@@ -199,7 +237,7 @@
             items.push(val["properties"]["name"]+", "+ val["properties"]["state"]+", "+ val["properties"]["country"]);
           }
         });
-        // finally we place it in the suggestion of the field 
+        // finally we place it in the suggestion of the field
         $( "#{{ profile_form.location.id_for_label }}" ).autocomplete({
           source: items
         });

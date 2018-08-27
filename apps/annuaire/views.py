@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib import messages
 
-from .models import Member
+from .models import Member, LeisureTag, Profile
 from .forms import *
 
 import logging
@@ -26,6 +26,8 @@ def profile_display(request, username=None):
 
     return render(request, 'annuaire/profile_display.html', {
         'user': user,
+        # we have to extract the leisure here as it requires a DB call
+        'leisures': user.profile.leisure.all(),
         })
 
 @login_required
@@ -36,18 +38,25 @@ def profile_update(request):
                 instance=request.user.profile)
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
-            Profile = profile_form.save(commit=False)
+            profile = profile_form.save(commit=False)
             location = profile_form.cleaned_data['location'].split(", ")
-            Profile.city = None
-            Profile.region = None
-            Profile.country = None
+            profile.city = None
+            profile.region = None
+            profile.country = None
             if len(location)>=1:
-                Profile.country = location[-1]
+                profile.country = location[-1]
             if len(location)>=2:
-                Profile.region = location[-2]
+                profile.region = location[-2]
             if len(location)>=3:
-                Profile.city = location[-3]
-            Profile.save()
+                profile.city = location[-3]
+            profile.save()
+
+            # Update the leisure of the profile as the leisure field is not
+            # linked to the model.
+            leisurePks = []
+            for str in eval(profile_form.cleaned_data['leisure']):
+                leisurePks.append(LeisureTag.objects.get_or_create(tag=str)[0].id)
+            profile.leisure.set(leisurePks)
 
             messages.success(request, 'Votre profile a bien été mis à jour \o/')
             return redirect('display_profile')
@@ -62,10 +71,17 @@ def profile_update(request):
                 request.user.profile.region, request.user.profile.country]
         location = filter(lambda x: x != None, location)
         location = (", ").join(location)
+    # We generate the list of available tag and add a key to indicate if it's in
+    # the current profile
+    leisureTags = []
+    for leisure in LeisureTag.objects.filter(profile__in=Profile.objects.all()).distinct():
+        leisureTags.append((leisure,
+            leisure.profile_set.filter(pk=request.user.profile.pk).exists()))
     return render(request, 'annuaire/profile_update.html', {
         'user_form': user_form,
         'profile_form': profile_form,
         'location':location,
+        'leisureTags':leisureTags
         })
 
 @login_required

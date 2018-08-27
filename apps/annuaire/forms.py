@@ -16,10 +16,14 @@ class UserEditForm(forms.ModelForm):
 
 class ProfileEditForm(forms.ModelForm):
     # ToDo: add a proper clean function for the location field
+    # We use a custom field to merge all the location info in a single field
     location = forms.CharField(label="Résidence", required=False)
+    # Here we define a custom leisure field. We have to manage it manually to be
+    # able to add new tag "on the fly"
+    leisure = forms.CharField(widget=forms.SelectMultiple)
     class Meta:
         model = Profile
-        fields = ('photo', 'bio', 'promo', 'gender', 'gap_year', 'miscellaneous',)
+        fields = ('leisure', 'photo', 'bio', 'promo', 'gender', 'gap_year', 'miscellaneous',)
         help_texts = {
                 'promo': "Année de votre diplome",
                 }

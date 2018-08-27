@@ -75,6 +75,17 @@
       </dd>
       {% endif %}
 
+      {% if leisures %}
+      <dt class="col-md-4 col-lg-3 text-muted">
+      Loisir :
+      </dt>
+      <dd class="col-md-8 col-lg-9 align-self-end">
+      {% for leisure in leisures %}
+      <span class="badge badge-secondary">{{ leisure|title }}</span>
+      {% endfor %}
+      </dd>
+      {% endif %}
+
       {% if user.profile.miscellaneous %}
       <dt class="col-md-4 col-lg-3 text-muted">
       Divers :

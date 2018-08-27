@@ -16,6 +16,15 @@ def avatar_directory_path(instance, filename):
     return 'avatar/{0}{1}'.format(instance.user.username,
     path.splitext(filename)[1])
 
+class LeisureTag(models.Model):
+
+    """Docstring for LeisureTag. """
+    #ToDo: ensure that the value are actually 25 char max
+    tag = models.CharField('tag', max_length=25)
+
+    def __str__(self):
+        return self.tag
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
@@ -34,6 +43,7 @@ class Profile(models.Model):
     promo=models.IntegerField("promotion", null=True, blank=True)
     gap_year = models.BooleanField("césure", default=False)
     miscellaneous = models.TextField("divers", max_length=500, blank=True)
+    leisure = models.ManyToManyField(LeisureTag, blank=True)
 
     def __str__(self):
         return self.user.username
@@ -79,7 +89,7 @@ class Member(models.Model):
 
     def __str__(self):
         return self.firstname+" "+self.lastname
-            
+
 # The next two function are used to create a memory in order to know if the
 # user field changed. And if so it triggers a save() on the relevant User to
 # activate or desactivate them
