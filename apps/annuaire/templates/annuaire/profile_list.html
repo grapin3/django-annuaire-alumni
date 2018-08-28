@@ -1,15 +1,16 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block content %}
 <div class="row">
   <div class="col-8">
-    <h2>Rechercher une personne dans l'annuaire</h2>
+    <h2>{% trans "Find someone in the address book" %}</h2>
   </div>
   <div class="col-4">
     <input class="form-control"
            id="filterSearchField"
            type="text"
-           placeholder="Rechercher ...">
+           placeholder="{% trans "Search …" %}">
   </div>
 </div>
 
@@ -27,7 +28,7 @@
             <button type="button" class="btn btn-outline-primary btn-sm"
                                   data-toggle="collapse"
                                   data-target="#collapse-{{ user }}">
-              &#9776; 
+              &#9776;
             </button>
           </div>
         </div>
@@ -36,21 +37,27 @@
       <div id="collapse-{{ user }}" class="collapse">
         <div class="card-body">
           {% if user.profile.promo %}
-          <p>Diplomé{% if user.profile.gender == 0 %}{% elif user.profile.gender == 1 %}e
-          {% else %}(e){% endif %} en {{user.profile.promo}}
-          {% if user.profile.gap_year == True %} après une césure{% endif %}</p>
+          {% get_current_language as region %}
+          <p>{% if region == "fr-fr" %}
+          Diplomé{% if user.profile.gender == 0 %}{% elif user.profile.gender == 1 %}e
+          {% else %}(e){% endif %} en
+          {% else %}{% trans "graduated in"|capfirst %}{% endif %} :{{user.profile.promo}}
+          {% if user.profile.gap_year == True %} {% trans "after a gap year" %}
+          {% endif %}</p>
           {% endif %}
 
           {% if user.profile.bio %}
-          <p> Bio: {{user.profile.bio|truncatewords:25}}</p>
+          {# Translators: Short for biography #}
+          <p> {% trans "bio"|capfirst %} : {{user.profile.bio|truncatewords:25}}</p>
           {% endif %}
 
           {% if user.profile.miscellaneous %}
-          <p> Misc: {{user.profile.miscellaneous}}</p>
+          {# Translators: Short for miscellaneous #}
+          <p> {% trans "misc."|capfirst %} : {{user.profile.miscellaneous}}</p>
           {% endif %}
 
           {% if user.profile.country %}
-          <p> Résidence :
+          <p> {% trans "residence"|capfirst %} :
           {% if user.profile.region %}
           {% if user.profile.city %}
           {{ user.profile.city }}, {% endif %}{{ user.profile.region }}, {% endif %}
@@ -58,14 +65,15 @@
           </p>
           {% endif %}
 
-          <p> Membre depuis : {{ user.member.registration_date.year }}
+          <p> {% trans "Member since :" %} {{ user.member.registration_date.year }}
           </p>
 
         </div>
 
         <div class="card-footer">
-          <a class="badge" href="{% url 'display_profile' user %}">Voir
-            détail</a>
+          <a class="badge" href="{% url 'display_profile' user %}">
+            {% trans "See more" %}
+          </a>
         </div>
       </div>
     </div>

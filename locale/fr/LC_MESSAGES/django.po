@@ -1,0 +1,382 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-08-28 10:19+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: apps/annuaire/admin.py:20 apps/annuaire/models.py:60
+msgid "profile"
+msgstr "profil"
+
+#. Translators: Used as the field label during the form rendering
+#: apps/annuaire/forms.py:22
+msgid "Residence"
+msgstr "Résidence"
+
+#: apps/annuaire/forms.py:30
+msgid "Graduating year"
+msgstr "Année de diplôme"
+
+#: apps/annuaire/forms.py:31
+#: apps/annuaire/templates/annuaire/profile_update.html:110
+msgid "I took a gap year"
+msgstr "J'ai fait une césure"
+
+#: apps/annuaire/models.py:30
+msgid "leisure"
+msgstr "loisir"
+
+#: apps/annuaire/models.py:31
+msgid "leisures"
+msgstr "loisirs"
+
+#. Translators: Gender choice descripition
+#: apps/annuaire/models.py:39
+msgid "male"
+msgstr "homme"
+
+#: apps/annuaire/models.py:39
+msgid "female"
+msgstr "femme"
+
+#. Translators: Gender field label
+#: apps/annuaire/models.py:41
+msgid "gender"
+msgstr "sexe"
+
+#. Translators: Avatar field label
+#: apps/annuaire/models.py:45
+msgid "avatar"
+msgstr "avatar"
+
+#: apps/annuaire/models.py:47
+msgid "city"
+msgstr "ville"
+
+#: apps/annuaire/models.py:48
+msgid "region"
+msgstr "région"
+
+#: apps/annuaire/models.py:49
+msgid "country"
+msgstr "pays"
+
+#: apps/annuaire/models.py:50
+#: apps/annuaire/templates/annuaire/profile_display.html:73
+msgid "biography"
+msgstr "biographie"
+
+#: apps/annuaire/models.py:52
+msgid "gap year"
+msgstr "césure"
+
+#: apps/annuaire/models.py:53
+#: apps/annuaire/templates/annuaire/profile_display.html:97
+msgid "miscellaneous"
+msgstr "divers"
+
+#: apps/annuaire/models.py:61
+msgid "profiles"
+msgstr "profils"
+
+#: apps/annuaire/models.py:79
+#: apps/annuaire/templates/annuaire/member_list.html:8
+msgid "first name"
+msgstr "prénom"
+
+#: apps/annuaire/models.py:80
+msgid "last name"
+msgstr "nom"
+
+#: apps/annuaire/models.py:81
+msgid "registration date"
+msgstr "date d'inscription"
+
+#: apps/annuaire/models.py:83
+msgid "expiration date"
+msgstr "date d'expiration"
+
+#: apps/annuaire/models.py:96
+msgid "up to date"
+msgstr "à jour"
+
+#: apps/annuaire/models.py:99
+msgid "member"
+msgstr "membre"
+
+#: apps/annuaire/models.py:100
+msgid "members"
+msgstr "membres"
+
+#: apps/annuaire/templates/annuaire/member_list.html:5
+msgid "List of the members"
+msgstr "Liste des membres"
+
+#: apps/annuaire/templates/annuaire/member_list.html:8
+msgid "Primary key"
+msgstr "Clé primaire"
+
+#: apps/annuaire/templates/annuaire/member_register.html:8
+msgid "Create"
+msgstr "Créer"
+
+#: apps/annuaire/templates/annuaire/member_registered.html:10
+msgid "Welcome on the index"
+msgstr "Bienvenue sur l'index"
+
+#: apps/annuaire/templates/annuaire/profile_display.html:22
+msgid "Edit my profile"
+msgstr "Modifier mon profil"
+
+#: apps/annuaire/templates/annuaire/profile_display.html:33
+msgid "username"
+msgstr "pseudonyme"
+
+#: apps/annuaire/templates/annuaire/profile_display.html:41
+msgid "graduating year"
+msgstr "année de diplôme"
+
+#: apps/annuaire/templates/annuaire/profile_display.html:45
+#: apps/annuaire/templates/annuaire/profile_list.html:45
+msgid "after a gap year"
+msgstr "après une année de césure"
+
+#: apps/annuaire/templates/annuaire/profile_display.html:51
+#: apps/annuaire/templates/annuaire/profile_list.html:60
+msgid "residence"
+msgstr "résidence"
+
+#: apps/annuaire/templates/annuaire/profile_display.html:64
+msgid "email"
+msgstr "email"
+
+#: apps/annuaire/templates/annuaire/profile_display.html:82
+msgid "Leisure"
+msgid_plural "Leisures"
+msgstr[0] "Loisir"
+msgstr[1] "Loisir"
+
+#: apps/annuaire/templates/annuaire/profile_list.html:7
+msgid "Find someone in the address book"
+msgstr "Rechercher un membre"
+
+#: apps/annuaire/templates/annuaire/profile_list.html:13
+msgid "Search …"
+msgstr "Rechercher …"
+
+#: apps/annuaire/templates/annuaire/profile_list.html:44
+msgid "graduated in"
+msgstr "diplômé en"
+
+#. Translators: Short for biography
+#: apps/annuaire/templates/annuaire/profile_list.html:51
+msgid "bio"
+msgstr "bio"
+
+#. Translators: Short for miscellaneous
+#: apps/annuaire/templates/annuaire/profile_list.html:56
+msgid "misc."
+msgstr "divers"
+
+#: apps/annuaire/templates/annuaire/profile_list.html:68
+msgid "Member since :"
+msgstr "Membre depuis"
+
+#: apps/annuaire/templates/annuaire/profile_list.html:75
+msgid "See more"
+msgstr "Voir plus"
+
+#: apps/annuaire/templates/annuaire/profile_register.html:23
+msgid "register"
+msgstr "s'inscrire"
+
+#: apps/annuaire/templates/annuaire/profile_update.html:81
+msgid "password"
+msgstr "mot de passe"
+
+#. Translators: Change password button
+#: apps/annuaire/templates/annuaire/profile_update.html:86
+msgid "Change"
+msgstr "Modifier"
+
+#. Translators: Save button in profile update
+#: apps/annuaire/templates/annuaire/profile_update.html:188
+msgid "save"
+msgstr "Enregistrer"
+
+#: apps/annuaire/templates/annuaire/profile_update.html:192
+msgid "delete profile"
+msgstr "supprimer profil"
+
+#: apps/annuaire/templates/annuaire/profile_update.html:201
+#: apps/annuaire/templates/annuaire/profile_update.html:215
+msgid "Delete my profile"
+msgstr "Supprimer mon profil"
+
+#: apps/annuaire/templates/annuaire/profile_update.html:208
+msgid ""
+"You are about to delete your profile. This action can't be undone. Do you "
+"want to continue ?"
+msgstr ""
+"Vous êtes sur le point de supprimer votre profil. Cette action est "
+"irréversible. Êtes-vous sûr de vouloir continuer ?"
+
+#: apps/annuaire/templates/annuaire/profile_update.html:217
+msgid "Cancel"
+msgstr "Annuler"
+
+#: apps/annuaire/views.py:63
+msgid "Your profile has been updated \\o/"
+msgstr "Votre profile a été mis à jour \\o/"
+
+#: apps/annuaire/views.py:67
+msgid ""
+"Craps, seems like you made some                     mistakes.  Please "
+"correct them"
+msgstr ""
+"Oups, il semblerait que vous ayez fait des erreurs. Merci de les corriger"
+
+#: apps/annuaire/views.py:92
+msgid "Sorry, account deletion is unavailable for                 superuser"
+msgstr ""
+"Désolé, la suppression du compte n'est pas possible pour un superutilisateur"
+
+#: apps/annuaire/views.py:98
+msgid "Your account has been deleted :("
+msgstr "Votre compte a été supprimé :("
+
+#: apps/annuaire/views.py:108
+msgid ""
+"Your account has been created. A                 moderator needs to activate "
+"it now"
+msgstr "Votre compte a été créé. Un modérateur doit désormais l'activer."
+
+#: apps/annuaire/views.py:128
+msgid "The member was successfully created!"
+msgstr "Le membre a bien été créé"
+
+#: templates/base.html:50
+msgid "Home"
+msgstr "Accueil"
+
+#. Translators: active section flag for blind
+#: templates/base.html:53 templates/base.html:64 templates/base.html:73
+msgid "active"
+msgstr "actuel"
+
+#. Translators: Section title for the address book
+#: templates/base.html:61
+msgid "People"
+msgstr "Annuaire"
+
+#: templates/base.html:70
+msgid "My Profile"
+msgstr "Mon Profil"
+
+#: templates/base.html:83
+msgid "Administration"
+msgstr "Administration"
+
+#: templates/base.html:87
+msgid "Log out"
+msgstr "Déconnexion"
+
+#: templates/base.html:91
+msgid "Sign up"
+msgstr "Inscription"
+
+#: templates/base.html:94 templates/registration/login.html:43
+#: templates/registration/password_reset_complete.html:8
+msgid "Sign in"
+msgstr "Connexion"
+
+#: templates/index.html:5
+msgid "Welcome"
+msgstr "Bienvenue"
+
+#: templates/index.html:7
+msgid "Welcome on the website of Salle T Alumni."
+msgstr "Bienvenue sur le site de Salle T Alumni."
+
+#: templates/index.html:11
+#, python-format
+msgid ""
+"This website is intended for the member of the association. Only them can "
+"access its content. If you are a member, you can ask for an account by "
+"registering <a href=\"%(register_url)s\">here</a>. The request will be send "
+"to board members. They will have to accept it before you can connect."
+msgstr ""
+"Le site est destiné aux membres de l'association. Seul ces derniers peuvent "
+"accéder à son contenu. Si vous êtes un membre, vous pouvez demander un "
+"compte en vous inscrivant <a href=\"%(register_url)s\">ici</a>. La demande "
+"sera transmise aux membres du bureau. Ils devront la valider avant que vous "
+"puissiez vous connecter."
+
+#: templates/registration/login.html:9
+msgid "Login"
+msgstr "Connexion"
+
+#: templates/registration/login.html:11
+msgid ""
+"Your username or password can't be found in our database. Please correct it "
+"and try again."
+msgstr ""
+"Votre nom d'utilisateur ou mot de passe est inconnu. Merci de le corriger et "
+"de réessayer."
+
+#: templates/registration/login.html:18
+msgid ""
+"Your account doesn't have access to this section. Please connect with "
+"another account to continue."
+msgstr ""
+"Votre compte n'est pas autorisé à accéder à cette section. Merci de vous "
+"connecter avec un autre compte pour continuer."
+
+#: templates/registration/login.html:22
+msgid "Please sign in to access this page."
+msgstr "Veuillez vous connecter pour accéder à cette page"
+
+#: templates/registration/login.html:34
+msgid "Username"
+msgstr "Nom d'utilisateur"
+
+#: templates/registration/login.html:39
+msgid "Password"
+msgstr "Mot de Passe"
+
+#: templates/registration/login.html:50
+msgid "Forgot your password?"
+msgstr "Mot de passe oublié ?"
+
+#: templates/registration/password_change_done.html:5
+msgid "It's all right"
+msgstr "C'est tout bon"
+
+#: templates/registration/password_change_done.html:7
+msgid "Your new password as been saved you can now use it to login !"
+msgstr ""
+"Votre nouveau mot de passe a été enregistré. Vous pouvez désormais vous "
+"connecter avec"
+
+#: templates/registration/password_change_form.html:8
+msgid "Sorry, the two passwords don't match"
+msgstr "Désolé, les deux mots de passe ne sont pas identiques"
+
+#. Translators: Submit button to change password
+#: templates/registration/password_change_form.html:16
+msgid "Submit"
+msgstr "Valider"

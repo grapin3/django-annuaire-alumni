@@ -1,23 +1,28 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block content %}
 
-<div class="row justify-content-center pr-sm-3 pr-md-3 pr-lg-5">            
+<div class="row justify-content-center pr-sm-3 pr-md-3 pr-lg-5">
   <div class="col-sm-8 col-md-6 col-lg-4 card">
     <div class="card-body">
-    <h2 class="card-title">Se connecter</h2>
+      <h2 class="card-title">{% trans "Login" %}</h2>
   {% if form.errors %}
-  <small class="text-danger">Votre nom d'utilisateur et mot de passe n'ont pas
-    été réconnu. Merci de réessayer.</small>
+  <small class="text-danger">{% blocktrans trimmed %}Your username or password
+    can't be found in our database. Please correct it and try again.
+    {% endblocktrans %}</small>
   {% endif %}
 
   {% if next %}
-  {% if user.is_authenticated %}
-  <p class="card-text text-info"> Votre compte n'a pas accès à cette page. Pour
-  continuer, merci de vous connecter avec un compte ayant accès.</p>
-  {% else %}
-  <p class="text-info">Merci de vous connecter pour accéder à cette page.</p>
-  {% endif %}
+    {% if user.is_authenticated %}
+    <p class="card-text text-info">{% blocktrans trimmed %}Your account doesn't
+    have access to this section. Please connect with another account to continue.
+    {% endblocktrans %}</p>
+    {% else %}
+    <p class="text-info">{% blocktrans trimmed %}Please sign in to access this
+    page.
+    {% endblocktrans %}</p>
+    {% endif %}
   {% endif %}
 
   <form method="post" action="{% url 'login' %}">
@@ -26,21 +31,24 @@
       <input id="{{ form.username.id_for_label }}"
              name="{{ form.username.html_name }}"
              class="form-control"
-             placeholder="Nom d'utilisateur">
+             placeholder="{% trans "Username" %}">
       <input id="{{ form.password.id_for_label }}"
              name="{{ form.password.html_name }}"
              type="password"
              class="form-control"
-             placeholder="Mot de passe">
+             placeholder="{% trans "Password" %}">
     </div>
 
-    <input type="submit" class="btn btn-block btn-primary" value="Connexion" />
+    <input type="submit" class="btn btn-block btn-primary"
+                         value="{% trans "Sign in" %}" />
     <input type="hidden" name="next" value="{{ next }}" />
   </form>
 
 
   {# Assumes you setup the password_reset view in your URLconf #}
-  <small><a href="{% url 'password_reset' %}">Mot de passe oublié ?</a></small>
+  <small><a href="{% url 'password_reset' %}">
+  {% trans "Forgot your password?" %}
+    </a></small>
   </div>
   </div>
 </div>

@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from django.utils.translation import gettext_lazy as _
 
 from .models import Profile, Member
 
@@ -17,15 +18,17 @@ class UserEditForm(forms.ModelForm):
 class ProfileEditForm(forms.ModelForm):
     # ToDo: add a proper clean function for the location field
     # We use a custom field to merge all the location info in a single field
-    location = forms.CharField(label="Résidence", required=False)
+    # Translators: Used as the field label during the form rendering
+    location = forms.CharField(label=_('Residence'), required=False)
     # Here we define a custom leisure field. We have to manage it manually to be
     # able to add new tag "on the fly"
-    leisure = forms.CharField(widget=forms.SelectMultiple)
+    leisure = forms.CharField(label=_('Loisir'), widget=forms.SelectMultiple, required=False)
     class Meta:
         model = Profile
         fields = ('leisure', 'photo', 'bio', 'promo', 'gender', 'gap_year', 'miscellaneous',)
         help_texts = {
-                'promo': "Année de votre diplome",
+                'promo': _("Graduating year"),
+                'gap_year': _("I took a gap year"),
                 }
 
 class MemberForm(forms.ModelForm):

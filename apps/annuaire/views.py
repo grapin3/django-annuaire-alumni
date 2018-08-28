@@ -4,6 +4,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib import messages
 
+from django.utils.translation import gettext as _
+
 from .models import Member, LeisureTag, Profile
 from .forms import *
 
@@ -58,12 +60,12 @@ def profile_update(request):
                 leisurePks.append(LeisureTag.objects.get_or_create(tag=str)[0].id)
             profile.leisure.set(leisurePks)
 
-            messages.success(request, 'Votre profile a bien été mis à jour \o/')
+            messages.success(request, _('Your profile has been updated \o/'))
             return redirect('display_profile')
         else:
             location = ""
-            messages.error(request, 'Oups, il semblerait que vous ayez fait \
-                    des erreurs. Merci de les corriger.')
+            messages.error(request, _("Craps, seems like you made some \
+                    mistakes.  Please correct them"))
     else:
         user_form = UserEditForm(instance=request.user)
         profile_form = ProfileEditForm(instance=request.user.profile,)
@@ -87,13 +89,13 @@ def profile_update(request):
 @login_required
 def profile_delete(request):
     if request.user.is_superuser:
-        messages.error(request, "Impossible de supprimer le compte d'un \
-                superutilisateur")
+        messages.error(request, _("Sorry, account deletion is unavailable for \
+                superuser"))
     else:
         username = request.user.username
         request.user.delete()
         logger.info("User %s has been deleted", username)
-        messages.info(request, "Votre compte est désormais supprimé :(")
+        messages.info(request, _("Your account has been deleted :("))
     return redirect('home')
 
 def profile_register(request):
@@ -103,8 +105,8 @@ def profile_register(request):
         user = form.save(commit=False)
         user.is_active = False
         user.save()
-        messages.success(request, "Votre compte a bien été crée. Il faut \
-                maintenant qu'un modérateur l'active.")
+        messages.success(request, _("Your account has been created. A \
+                moderator needs to activate it now"))
         return redirect('home')
     return render(request, 'annuaire/profile_register.html', {
         'form': form,
@@ -123,7 +125,7 @@ def member_register(request):
 
     if member_form.is_valid():
         member_form.save()
-        messages.success(request, 'The member was successfully created!')
+        messages.success(request, _("The member was successfully created!"))
         return render(request, 'annuaire/member_registered.html',{
             'member_form': member_form,
             })

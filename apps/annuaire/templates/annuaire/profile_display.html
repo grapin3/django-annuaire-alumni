@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load staticfiles %}
+{% load staticfiles i18n %}
 
 {% block content %}
 <section class="row">
@@ -18,7 +18,9 @@
     <div class="row">
       <div class="col-sm-auto ml-auto order-sm-last">
         {% if request.user == user %}
-        <a class="badge"  href="{% url 'update_profile' %}"> Modifier mon profil</a>
+        <a class="badge"  href="{% url 'update_profile' %}">
+          {% trans "Edit my profile" %}
+        </a>
         {% endif %}
       </div>
       <div class="col order-sm-start">
@@ -28,25 +30,25 @@
 
     <dl class="row">
       <dt class="col-md-4 col-lg-3 text-muted">
-      Pseudonyme :
+      {% trans "username"|capfirst %} :
       </dt>
       <dd class="col-md-8 col-lg-9 align-self-end">
-      {{ user.username|title }}
+      {{ user.username|capfirst }}
       </dd>
 
       {% if user.profile.promo != None %}
       <dt class="col-md-4 col-lg-3 text-muted">
-      Année de diplome :
+      {% trans "graduating year"|capfirst %} :
       </dt>
       <dd class="col-md-8 col-lg-9 align-self-end">
-      {{ user.profile.promo }}{% if user.profile.gap_year %}, après une
-      césure{% endif %}
+      {{ user.profile.promo }}{% if user.profile.gap_year %},
+      {% trans "after a gap year" %}{% endif %}
       </dd>
       {% endif %}
 
       {% if user.profile.country %}
       <dt class="col-md-4 col-lg-3 text-muted">
-      Résidence :
+      {% trans "residence"|capfirst %} :
       </dt>
       <dd class="col-md-8 col-lg-9 align-self-end">
       {% if user.profile.region %}
@@ -59,7 +61,7 @@
 
       {% if user.email %}
       <dt class="col-md-4 col-lg-3 text-muted">
-      Email :
+      {% trans "email"|capfirst %} :
       </dt>
       <dd class="col-md-8 col-lg-9 align-self-end">
         {{ user.email }}
@@ -68,7 +70,7 @@
 
       {% if user.profile.bio %}
       <dt class="col-md-4 col-lg-3 text-muted">
-      À propos de vous :
+      {% trans "biography"|capfirst %} :
       </dt>
       <dd class="col-md-8 col-lg-9 align-self-end">
       {{ user.profile.bio }}
@@ -77,18 +79,22 @@
 
       {% if leisures %}
       <dt class="col-md-4 col-lg-3 text-muted">
-      Loisir :
+      {% blocktrans trimmed count counter=leisures|length %}
+      Leisure
+      {% plural %}
+      Leisures
+      {% endblocktrans %} :
       </dt>
       <dd class="col-md-8 col-lg-9 align-self-end">
       {% for leisure in leisures %}
-      <span class="badge badge-secondary">{{ leisure|title }}</span>
+      <span class="badge badge-secondary">{{ leisure|capfirst }}</span>
       {% endfor %}
       </dd>
       {% endif %}
 
       {% if user.profile.miscellaneous %}
       <dt class="col-md-4 col-lg-3 text-muted">
-      Divers :
+      {% trans "miscellaneous"|capfirst %} :
       </dt>
       <dd class="col-md-8 col-lg-9 align-self-end">
       {{ user.profile.miscellaneous }}

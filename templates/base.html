@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% load staticfiles %}
+{% load staticfiles i18n %}
 
 <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/jquery-ui.min.js' %}"></script>
@@ -47,19 +47,31 @@
                 <li class="nav-item">
                   <a class="nav-link
                   {% if request.path == '/' %} active {% endif %}"
-                     href="{% url 'home' %}">Accueil
-                     <span class="sr-only"> (current)</span>
+                     href="{% url 'home' %}">{% trans "Home" %}
+                     {% if request.path == '/' %}
+                     {# Translators: active section flag for blind #}
+                     <span class="sr-only"> ({% trans "active" %})</span>
+                     {% endif %}
                   </a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link
                   {% if '/users' in request.path %} active {% endif %}"
-                     href="{% url 'list_profiles' %}">Annuaire</a>
+                     {# Translators: Section title for the address book #}
+                     href="{% url 'list_profiles' %}">{% trans "People" %}</a>
+                     {% if '/user' in request.path %}
+                     {# Translators: active section flag for blind #}
+                     <span class="sr-only"> ({% trans "active" %})</span>
+                     {% endif %}
                 </li>
                 <li class="nav-item">
                   <a class="nav-link
-                  {% if 'profile' in request.path %} active {% endif %}"
-                     href="{% url 'display_profile' %}">Mon Profil</a>
+                  {% if '/profile' in request.path %} active {% endif %}"
+                     href="{% url 'display_profile' %}">{% trans "My Profile" %}</a>
+                     {% if '/profile' in request.path %}
+                     {# Translators: active section flag for blind #}
+                     <span class="sr-only"> ({% trans "active" %})</span>
+                     {% endif %}
                 </li>
               </ul>
 
@@ -68,12 +80,19 @@
                 {% if request.user.is_authenticated %}
                 {% if request.user.is_staff %}
                 <a class="nav-item nav-link text-warning"
-                     href="{% url 'admin:index' %}">Administration</a>
+                   href="{% url 'admin:index' %}">{% trans "Administration" %}
+                </a>
                 {% endif %}
-                <a class="nav-item nav-link" href="{% url 'logout' %}">Déconnexion</a>
+                <a class="nav-item nav-link" href="{% url 'logout' %}">
+                  {% trans "Log out" %}
+                </a>
                 {% else %}
-                <a class="nav-item nav-link" href="{% url 'login' %}">Connexion</a>
-                <a class="nav-item nav-link" href="{% url 'register_profile' %}">Inscription</a>
+                <a class="nav-item nav-link" href="{% url 'register_profile' %}">
+                  {% trans "Sign up" %}
+                </a>
+                <a class="nav-item nav-link active" href="{% url 'login' %}">
+                  {% trans "Sign in" %}
+                </a>
                 {% endif %}
               </div>
           </nav>

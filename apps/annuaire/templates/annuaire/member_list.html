@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block content %}
-<p>Liste des membres</p>
+<p>{% trans "List of the members" %}</p>
 
 {% for value in member_list%}
-<p>identifiant unique:{{value.memberid}} prénom:{{value.firstname}} <p>
+<p>{% trans "Primary key" %}:{{value.memberid}} {% trans "first name" %}:{{value.firstname}} <p>
 
 {% endfor %}
 {% endblock content %}

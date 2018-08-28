@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% {% load i18n %}
 
 {% block content %}
 <ul class="messages">
@@ -6,5 +7,5 @@
     <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
     {% endfor %}
 </ul>
-<p>Bienvenue sur l'index</p>
+<p>{% trans "Welcome on the index" %}</p>
 {% endblock content %}

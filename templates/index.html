@@ -1,12 +1,17 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block content %}
-<h1>Bienvenue</h1>
+<h1>{% trans "Welcome" %}</h1>
 
-<p>Bienvenue sur le site de l'association Salle T Alumni.</p>
-<p>Ce site étant destiné aux membres de l'association, seul ces derniers peuvent
-accéder à son contenu. Si tu es membre, tu peux demander la création d'un
-compte <a href="{% url 'register_profile' %}">ici</a>. Ta demande sera transmise
-à un membre du bureau qui devra la valider avant que tu puisses te
-connecter.</p>
+<p>{% blocktrans trimmed %}
+Welcome on the website of Salle T Alumni.
+{% endblocktrans %}</p>
+{% url 'register_profile' as register_url %}
+<p>{% blocktrans trimmed %}
+This website is intended for the member of the association. Only them can access
+its content. If you are a member, you can ask for an account by registering <a
+  href="{{ register_url }}">here</a>. The request will be send to board members.
+They will have to accept it before you can connect.
+{% endblocktrans %}</p>
 {% endblock content %}
